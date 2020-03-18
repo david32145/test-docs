@@ -1,0 +1,95 @@
+html, body{
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+header {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    padding: 10px;
+    width: 100%;
+    height: 7%;
+
+    background: #CF65C1;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    
+}
+
+header .logo-and-name {
+    float: left;
+}
+
+.logo-and-name .logo-name{
+    display: inline;
+    font-size: 25px;
+    text-align: center;
+    line-height: 50px;
+    color: rgb(240, 240, 240);
+    
+
+}
+
+header .menu {
+    float: right;
+}
+
+header .logo-in-header {
+    width: 50px;
+    /*
+    margin: 20px;
+    margin-left: 40px;
+    */
+}
+.img-perfil {
+    width: 35px;
+}
+
+.content-principal {
+    clear: both;
+    width: 100%;
+    height: 100%;
+    margin: 80px;
+    min-height: 600px;
+    display: flex;
+    flex-direction: row;
+}
+
+.content-project .content-notification {
+    display: flex;
+    width: 100%;
+    margin-top: 50px;
+    flex-direction: column;
+    min-width: 600px;
+}
+.content-project{
+    min-width: 800px;
+    border-right: rgba(241, 232, 232, 0.25);
+}
+
+.content-notification{
+    min-width: 600px;
+}
+
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+li {
+    display: inline;
+}
+
+li a {
+    display: inline-block;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
