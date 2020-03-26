@@ -75,12 +75,11 @@ li a {
     clear: both;
     width: 100%;
     height: 100%;
-    padding: 60px;
-    padding-bottom: 0;
+    padding: 7% 3% 0 5%;
     border: black 30px;
     min-height: 600px;
     display: flex;
-    flex-direction: colum;
+    flex-direction: row;
 }
 
 .content-project, .content-notification {
@@ -91,13 +90,13 @@ li a {
 }
 
 .content-project{
-    padding: 72px;
     min-width: 70%;
+    padding-right: 3%;
     border-right: 2px solid #E6E6E6;
 }
 
 .content-notification{
-    padding: 72px;
+    padding-left: 2%;
     min-width: 30%;
     display: flex;
 }
@@ -117,14 +116,121 @@ li a {
 }
 
 .button-new-project {
-    margin-top: 20px;
+    margin-top: 2%;
     float: right;
-    width: 310px;
-    height: 55px;
+    width: 270px;
+    height: 50px;
     color: #FFF;
     background: #6C63FF;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
     border-radius: 5px;
     
+}
+
+nav ul {
+    width: 100%;
+}
+
+nav ul li {
+    width: 33%;
+    text-align: center;
+    letter-spacing: 0.05em;
+    color: #808080;
+    padding: 0 35px 20px 35px;
+    border-bottom: 1px solid #CCCCCC;
+}
+
+.list-projects {
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.box-project {
+    width: 100%;
+    height: 130px;
+    display: flex;
+    flex-direction: row;
+    margin-top: 10px;
+    padding: 10px;
+    background: #FFFFFF;
+    border: 1px solid #E6E6E6; 
+    border-radius: 4px;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+
+}
+
+.icon-project img{
+    margin-top: 25px;
+    margin-right: 10px;
+    width: 70px;
+}
+
+.data-project {
+    display: flex;
+    flex-direction: column;
+}
+
+.data-project .row1 {
+    display: flex;
+    flex-direction: row;
+    height: 33%;
+    width: 100%;
+}
+
+.data-project .row1 h3{
+    margin: 2px;
+    align-items: center;
+    text-align: center;
+    letter-spacing: 0.05em;
+    color: #6D6D6D;
+}
+
+.data-project .row1 span{
+    padding: 0 5px;
+    border-radius: 8px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    letter-spacing: 0.05em;
+    background: #E62E4A;
+    color: #FFFFFF;
+}
+
+
+.data-project .row2 p{
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 21px;
+    text-align: justify;
+    letter-spacing: 0.02em;
+
+    color: #999999;
+}
+
+.data-project .row3 {
+    
+}
+
+.data-project .row3 img{
+
+}
+
+.data-project .row3 span{
+    font-size: 12px;
+    line-height: 14px;
+    text-align: justify;
+    color: #999999;
+}
+
+.data-project .row3 button{
+    font-size: 16px;
+    line-height: 19px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #6C63FF;
 }
 
