@@ -1,0 +1,260 @@
+html, body{
+    font-family: Roboto;
+    font-style: normal;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    padding: 15px;
+    width: 100%;
+    height: 75px;
+    background: #CF65C1;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.22); 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-and-name { 
+    display: flex;
+    align-items: center;
+}
+
+.logo-in-header {
+    width: 40px;
+    margin-right: 15px;
+}
+
+.logo-name{
+    display: inline;
+    text-align: center;
+    font-size: 25px;
+    font-weight: bold;
+    color:#FFF;
+    letter-spacing: 0.8px;
+}
+
+header .menu {
+    display: flex;  
+    align-items: center;
+    justify-content: space-around;
+}
+
+.menu li a {
+    display: flex;
+    align-items: center;
+    padding: 5px 15px;
+    color: #FFF; 
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    font-size: 20px;
+}
+
+.menu li a:hover {
+    background-color: rgb(168, 101, 207);
+}
+
+.menu li:last-child a{
+    padding: 0;
+    margin: 0 20px;
+}
+
+.img-user { width: 40px;}
+
+.content-principal {
+    width: 0 auto;
+    height: 100%;
+    padding: 7% 3% 0 5%;
+    min-height: 600px;
+    display: flex;
+    flex-direction: row;
+}
+
+.content-project, .content-notification {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-width: 600px;
+}
+
+.content-project{
+    min-width: 70%;
+    padding-right: 3%;
+    border-right: 2px solid #E6E6E6;
+}
+
+.content-notification{
+    padding-left: 2%;
+    min-width: 30%;
+    display: flex;
+}
+
+.content-notification h1 {
+    align-items: center;
+    text-align: center;
+    color: #6D6D6D;
+    letter-spacing: 0.05em;
+}
+
+.title-project {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.title-project h1{
+    font-weight: bold;
+    letter-spacing: 0.05em;
+    color: #4D4D4D;
+}
+
+.button-new-project {
+    width: 250px;
+    color: #FFF;
+    background: #6C63FF;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
+    border-radius: 7px;
+}
+
+nav ul {
+    display: flex;
+    align-content: center;
+    justify-content: flex-start;
+    text-align: center;
+    width: 100%;
+}
+
+nav ul li {
+    width: 33%;
+    color: #808080;
+    padding: 0 35px 15px 35px;
+    text-align: center;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid #CCCCCC;
+    cursor: pointer;
+}
+
+.list-projects {
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.box-project {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-content: center;
+    margin-top: 10px;
+    padding: 10px;
+    background: #FFFFFF;
+    border: 1px solid #E6E6E6; 
+    border-radius: 4px;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+}
+
+.icon-project img{
+    margin-right: 15px;
+    width: 65px;
+}
+
+.data-project {
+    display: flex;
+    flex-direction: column;
+}
+
+.data-project .row1 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.data-project .row2 { }
+
+.data-project .row3 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.data-project .row1 div {
+    display: flex;
+}
+
+.data-project .row1 div h3{
+    margin: 0;
+    margin-right: 20px;
+    align-items: center;
+    text-align: center;
+    letter-spacing: 0.05em;
+    color: #6D6D6D;
+}
+
+.data-project .row1 div span{
+    display: flex;
+    align-items: center;
+    padding: 8px;
+
+    border-radius: 10px;
+    font-size: 12px;
+    background: #E62E4A;
+    color: #FFFFFF;
+}
+
+.data-project .row1 .tres-pontinhos {
+    width: 15px;
+}
+
+.data-project .row2 p{
+    margin: 10px 0;
+    font-weight: 300;
+    font-size: 16px;
+    text-align: justify;
+    letter-spacing: 0.02em;
+    color: #999999;
+}
+
+.data-project .row3 .contributors {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.data-project .row3 .contributors img{
+    width: 28px;
+    margin-right: 20px;
+}
+
+.data-project .row3 .contributors span{
+    font-size: 13px;
+    text-align: justify;
+    color: #999999;
+}
+
+.data-project .row3  button{
+    background: none;
+    border: none;
+    font-size: 15px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #6C63FF;
+    cursor: pointer;
+}
