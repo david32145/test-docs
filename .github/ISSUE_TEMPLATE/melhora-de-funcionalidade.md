@@ -1,7 +1,7 @@
 ---
 name: Melhora de funcionalidade
 about: Melhora de alguma funcionalidade já existente
-title: "[Melhora] - "
+title: "Melhora - "
 labels: ''
 assignees: ''
 

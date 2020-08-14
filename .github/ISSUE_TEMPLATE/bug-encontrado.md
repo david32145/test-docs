@@ -1,7 +1,7 @@
 ---
 name: Bug encontrado
 about: Bug encontrado e pedido de resolução
-title: "[Correção] - "
+title: "Correção - "
 labels: Correção
 assignees: ''
 

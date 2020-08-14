@@ -1,7 +1,7 @@
 ---
 name: Documentação
 about: Documentação sobre algum ponto do sistema
-title: "[Documentação] - "
+title: "Documentação - "
 labels: Documentação
 assignees: ''
 

@@ -1,7 +1,7 @@
 ---
 name: Nova Funcionalidade
 about: Nova funcionalidade que será adicionada
-title: "[Funcionadade] - "
+title: "Funcionadade - "
 labels: Funcionalidade
 assignees: ''
 

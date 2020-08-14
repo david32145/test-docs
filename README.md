@@ -11,3 +11,16 @@ em um sistema colaborativo e de fácil usabilidade.
 - [Diagramas](./project/diagrams)
   - [Use Case](./project/diagrams/useCase.pdf)
   - [Entity relationship model](./project/diagrams/er.pdf)
+
+## Guias de estilos
+
+Neste projeto há uma série de guia de estilos que devem ser seguidas, como:
+
+- [X] Criar issues (template de como criar a issue);
+- [X] Criar pull request (template para criar pull request);
+- [X] Como assinar PR e issues com labels e pessoas;
+- [X] Mensagens de commit;
+- [X] Nomes de branches;
+- [X] Fluxo de git e github.
+
+Você pode encontrar mais informações no [Guias de Estilos](./.github/CONTRIBUTING.md) do _Test Docs_
