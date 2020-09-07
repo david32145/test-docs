@@ -1,5 +1,8 @@
 window.addEventListener('load', () => {
   const dialog = document.querySelector(".alert-dialog")
+  if(!dialog){
+    return
+  }
   const dialogContainer = dialog.querySelector(".dialog-container")
   const dialogHeader = dialogContainer.querySelector(".dialog-header")
   const dialogBody = dialogContainer.querySelector(".dialog-body")

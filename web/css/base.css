@@ -34,6 +34,8 @@ body {
   --dark-text: #313638 ;
   --bg-red: #E62E4A;
   --bg-blue: #0681B3;
+  --light-green: #F5F7FB;
+  --gray: #7C8B99;
 }
 
 /* Titles */
@@ -87,6 +89,25 @@ h1{
   font-weight: 300;
   font-size: 1.2rem;
   margin-top: 8px;
+}
+
+/*Override de algumas propriedades acima para reaproveitar sem  duplicar*/
+.input-group-ligth label {
+  font-weight: 400;
+  color: rgba(49, 54, 56, 0.8);
+}
+
+.input-group-ligth input {
+  color: var(--dark-text);
+  border-bottom-color: var(--gray);
+}
+
+.input-group-ligth.input-group-active label {
+  color: var(--dark-text);
+}
+
+.input-group-ligth.input-group-active input {
+  border-bottom-color: var(--dark-text);
 }
 
 .input-group-active input {
