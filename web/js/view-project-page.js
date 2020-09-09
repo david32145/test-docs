@@ -73,7 +73,7 @@ window.addEventListener('load', () => {
 
     if(!(hasNameError || hasDescriptionError || hasGithubError)) {
       main1.style.display = "none"
-      main2.style.display = "flex"
+      main2.style.display = "grid"
       main3.style.display = "none"
     }
   })
@@ -81,14 +81,14 @@ window.addEventListener('load', () => {
   btnEdit.addEventListener("click", () => {
     main1.style.display = "none"
     main2.style.display = "none"
-    main3.style.display = "flex"
+    main3.style.display = "grid"
   })
 
 
   const rng = Math.random()
   if(rng <= 0.5) {
-    main1.style.display = "flex"
+    main1.style.display = "grid"
   } else {
-    main2.style.display = "flex"
+    main2.style.display = "grid"
   }
 })
