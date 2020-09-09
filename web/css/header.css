@@ -1,0 +1,113 @@
+header{
+    width: 100%;
+    height: 64px;
+    background-color: var(--primary-color);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+header .header-container{
+    width: 95%;
+    margin: auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/*Logo e Titulo*/
+.header-container .logo-and-title-container {
+    width: 200px;
+    display: flex;
+    align-items: center;
+}
+
+.logo-and-title-container img {
+    width: 40px;
+    height: 40px;
+    margin-right: 35px;
+}
+
+.logo-and-title-container span {
+    color: #FFFFFF;
+    font-weight: 500;
+    font-size: 2.2rem;
+    line-height: 2.6rem;
+    text-align: justify;
+    letter-spacing: 0.02rem;
+    cursor: pointer;
+}
+
+/*Notificações e user*/
+.header-container .notifications-and-user-container {
+    display: flex;
+    align-items: center;
+}
+
+.notifications-and-user-container .icon-notifications-container {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin-right: 35px;
+}
+
+.notifications-and-user-container .icon-notifications-container img {
+    width: 18px;
+    height: 18px;
+}
+
+.notifications-and-user-container .icon-notifications-container .notifications-number {
+    width: 18px;
+    height: 18px;
+    position: absolute;
+    background-color: var(--bg-blue);
+    color: #FFFFFF;
+    border-radius: 8px;
+    font-size: 10px;
+    letter-spacing: 0.02em;
+    text-align: center;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    left: 0;
+    transform: translate(50%, -50%);
+}
+
+.notifications-and-user-container .icon-user {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+@media (max-width: 680px) {
+    header {
+        min-width: 300px;
+        height: 10vw;
+        min-height: 60px;
+    }
+
+    .header-container .logo-and-title-container {
+        width: 180px;
+        min-width: 160px;
+    }
+
+    .logo-and-title-container img {
+        width: 44px;
+        height: 44px;
+    }
+    
+    .logo-and-title-container span {
+        font-size: 2.0rem;
+    }
+
+    .header-container .notifications-and-user-container {
+        width: 80px;
+        min-width: 88px;
+    }
+}
