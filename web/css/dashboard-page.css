@@ -84,18 +84,14 @@ main .projects-header {
     background: transparent;
     outline: none;
     border: none;
-
+    padding: 0 10px;
     font-weight: 300;
-    text-align: center;
+    text-align: left;
     font-size: 1.8rem;
     line-height: 2.1rem;
     letter-spacing: 0.02em;
     color: var(--gray-light);
     transition: 0.3s;
-
-    display: flex;
-    align-items: center;
-
 }
 
 .container .project-search-container input:focus {
@@ -104,17 +100,18 @@ main .projects-header {
 
 .container button {
     cursor: pointer;
+    border: none;
     font-size: 2.5rem;
     width: 45px;
     height: 45px;
     background-color: var(--primary-color);
     color: #FFFFFF;
     border-radius: 25px;
-    transition-duration: 0.02s;
+    transition: 0.2s;
 }
 
 .container button:hover {
-    transform: scale(1.1,1.1);
+    transform: scale(1.1, 1.1);
 }
 
 main .list-project {
@@ -127,12 +124,12 @@ main .list-project {
     width: 792px;
     min-width: 500px;
     height: 70px;
-    
+    cursor: pointer;
     border-radius: 3px 3px 0px 0px;
     display: flex;
     align-items: center;
     justify-content: space-around;
-    transition-duration: 0.02s;
+    transition: 0.2s;
     background: #FFFFFF;
 }
 
@@ -267,6 +264,7 @@ main .list-project {
 .notifications .list-notification {
     margin-bottom: 15px;
     display: flex;
+    cursor: pointer;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -281,7 +279,7 @@ main .list-project {
     display: flex;
     align-items: center;
     justify-content: center;
-    transition-duration: 0.02s;
+    transition: 0.2s;
 }
 
 .notifications .list-notification li:hover {
