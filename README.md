@@ -24,11 +24,6 @@ Neste projeto há uma série de guia de estilos que devem ser seguidas, como:
 - [X] Fluxo de git e github.
 
 Você pode encontrar mais informações no [Guias de Estilos](./.github/CONTRIBUTING.md) do _Test Docs_
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 0f74910fba2f5beec67d20f7b4ee8cddbea0b9e6
 
 ## Sobre o projeto
 
@@ -84,9 +79,4 @@ Você pode encontrar mais informações no [Guias de Estilos](./.github/CONTRIBU
 * [ ] O **user** que irá fazer os testes é o único que pode alterar informações dentro de uma **release_tests**.
 * [ ] Ao selecionar o **user** este deve ser notificado tanto ao entrar no tela principal do sistema como no e-mail.
 * [ ] Caso exista um repositório do github associado deve carregar as informações da tag para a **release_tests**.
-<<<<<<< HEAD
 * [ ] O sistema deve informar se a versão foi aprovada, indicando os pontos reprovados (caso haja) em acordo com as entradas fornecidas pelo **user** que está testando.
->>>>>>> 0f74910fba2f5beec67d20f7b4ee8cddbea0b9e6
-=======
-* [ ] O sistema deve informar se a versão foi aprovada, indicando os pontos reprovados (caso haja) em acordo com as entradas fornecidas pelo **user** que está testando.
->>>>>>> 0f74910fba2f5beec67d20f7b4ee8cddbea0b9e6
