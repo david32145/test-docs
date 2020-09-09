@@ -9,17 +9,12 @@ window.addEventListener('load', () => {
   const description = descriptionFormGroup.querySelector("input")
   const descriptionError = descriptionFormGroup.querySelector("span")
 
-  const reportFormGroup = document.querySelector("#report-form-group")
-  const report = reportFormGroup.querySelector("input")
-  const reportError = reportFormGroup.querySelector("span")
-
   const form = document.querySelector('form')
   form.addEventListener("submit", event => {
     event.preventDefault()
 
     let hasTitleError = false
     let hasDescriptionError = false
-    let hasReportError = false
 
     if(!title.value || title.value.length < 5) {
       hasTitleError = true
@@ -39,10 +34,6 @@ window.addEventListener('load', () => {
       }
     }
 
-    if(report.value === "") {
-        hasReportError = true
-        reportError.innerText = "A descrição é obrigatória"
-    }
 
     if(hasTitleError) {
       titleFormGroup.classList.add("input-group-error")
@@ -55,14 +46,9 @@ window.addEventListener('load', () => {
     } else {
       descriptionFormGroup.classList.remove("input-group-error")
     }
-    if(hasReportError) {
-        reportFormGroup.classList.add("input-group-error")
-      } else {
-        reportFormGroup.classList.remove("input-group-error")
-    }
 
-    if(!(hasTitleError || hasDescriptionError || hasReportError)) {
-      Dialog.show("Sucesso", "Novo suite de teste criado")
+    if(!(hasTitleError || hasDescriptionError)) {
+      Dialog.show("Sucesso", "Novo suite de teste criada")
     }
   })
 })

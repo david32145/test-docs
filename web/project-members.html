@@ -15,7 +15,7 @@
     <script src="./js/main.js" defer></script>
     <script src="./js/dialog.js" defer></script>
     <script src="./js/tab.js" defer></script>
-    <script src="./js/view-project-page.js" defer></script>
+    <script src="./js/project-members.js" defer></script>
 </head>
 
 <body>
@@ -41,22 +41,22 @@
             <span>Uber Technologies</span>
         </div>
         <div class="tab">
-            <div class="tab-item tab-active">
+            <div class="tab-item">
                 <div class="tab-item-label">
-                    <label>Informações</label>
+                    <label onclick="window.location = '/web/view-project-page.html'">Informações</label>
                 </div>
                 <div class="tab-active-indicator"></div>
             </div>
-            <div class="tab-item">
+            <div class="tab-item tab-active">
                 <div class="tab-item-label">
-                    <label>Membros</label>
+                    <label onclick="window.location = '/web/project-members.html'">Membros</label>
                     <img src="./img/users_icon.svg" alt="Users icon">
                 </div>
                 <div class="tab-active-indicator"></div>
             </div>
             <div class="tab-item">
                 <div class="tab-item-label">
-                    <label>Releases</label>
+                    <label onclick="window.location = '/web/list-release-page.html'">Releases</label>
                 </div>
                 <div class="tab-active-indicator"></div>
             </div>
