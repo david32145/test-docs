@@ -9,7 +9,7 @@ em um sistema colaborativo e de fácil usabilidade.
 
 - [Documento de Requisitos](./project/requirements.pdf)
 - [Diagramas](./project/diagrams)
-  - [Use Case](./project/diagrams/useCase.pdf)
+  - [Use Case](./project/UseCaseTestDocs.pdf)
   - [Entity relationship model](./project/diagrams/er.pdf)
 
 ## Guias de estilos

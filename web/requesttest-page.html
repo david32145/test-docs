@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Docs - Solicitar Teste</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="./css/header.css">
+    <link rel="stylesheet" href="./css/dialog.css">
+    <link rel="stylesheet" href="./css/requesttest-page.css">
+    <script src="./js/main.js" defer></script>
+    <script src="./js/dialog.js" defer></script>
+    <script src="./js/requesttest-page.js"></script>
+</head>
+
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo-and-title-container">
+                <img src="./img/logo.svg" alt="Logo">
+                <span>Dashboard</span>
+            </div>
+            <div class="notifications-and-user-container">
+                <div class="icon-notifications-container">
+                    <img src="./img/notifications-light.svg" alt="Icone de Notificações">
+                    <span class="notifications-number">10</span>
+                </div>
+                <img src="./img/user.svg" class="icon-user" alt="Icone de User">
+            </div>
+        </div>
+    </header>
+
+    <section id="sub-header">
+        <h1>Criar novo requisito de teste</h1>
+    </section>
+
+    <main>
+        <form action="#">
+            <div class="input-group input-group-ligth" id="version-form-group">
+                <label for="version">Versão</label>
+                <input type="text" id="version" placeholder="">
+                <span>Versão inválido</span>
+            </div>
+            <div class="input-group input-group-ligth" id="title-form-group">
+                <label for="title">Título</label>
+                <input type="text" id="title" placeholder="">
+                <span>Título inválido</span>
+            </div>
+            <div class="input-group input-group-ligth" id="description-form-group">
+                <label for="description">Descrição</label>
+                <input type="text" id="description" placeholder="">
+                <span>Descrição inválida</span>
+            </div>
+            <div class="input-group input-group-ligth" id="requestuserid-form-group">
+                <label for="report">Request ID:</label>
+                <input type="text" id="requestuserid" placeholder="">
+                <span>Request ID inválido</span>
+            </div>
+            <div class="input-group input-group-ligth" id="testeruserid-form-group">
+                <label for="testeruserid">Tester ID:</label>
+                <input type="text" id="testeruserid" placeholder="">
+                <span>Tester ID inválido</span>
+            </div>
+            <div class="input-group input-group-ligth" id="status-form-group">
+                <label for="status">Status</label>
+                <input type="text" id="status" placeholder="">
+                <span>Status inválido</span>
+            </div>
+            <button type="submit" class="btn-form">Criar requisito de teste</button>
+        </form>
+    </main>
+
+    <div class="alert-dialog">
+        <div class="dialog-container">
+            <h1 class="dialog-header">Título</h1>
+            <p class="dialog-body">
+                Context of dialog
+            </p>
+            <div class="actions">
+                <button class="btn-cancel">Cancelar</button>
+                <button class="btn-ok">Ok</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
