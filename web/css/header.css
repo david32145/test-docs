@@ -1,6 +1,6 @@
 header{
     width: 100%;
-    height: 64px;
+    min-height: 64px;
     background-color: var(--primary-color);
 
     display: flex;
@@ -9,9 +9,8 @@ header{
 }
 
 header .header-container{
-    width: 95%;
-    margin: auto;
-
+    width: 100%;
+    padding: 0 25px;
     display: flex;
     align-items: center;
     justify-content: space-between;
