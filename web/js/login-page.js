@@ -42,7 +42,7 @@ window.addEventListener('load', () => {
       passworFormGroup.classList.remove("input-group-error")
     }
     if(!hasEmailError && !hasPasswordError) {
-      Dialog.show("Sucesso", "Você fez login com sucesso")
+      window.location = "/web/dashboard-page.html"
     }
   })
 })

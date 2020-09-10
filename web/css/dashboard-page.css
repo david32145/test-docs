@@ -49,6 +49,7 @@ main .projects-header {
     font-weight: 500;
     font-size: 2.2rem;
     color: var(--dark-text);
+    margin-left: 22px;
 }
 
 .projects-header .container {
@@ -108,6 +109,7 @@ main .projects-header {
     color: #FFFFFF;
     border-radius: 25px;
     transition: 0.2s;
+    margin-right: 22px;
 }
 
 .container button:hover {
