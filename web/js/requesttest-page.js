@@ -13,14 +13,6 @@ window.addEventListener('load', () => {
   const description = descriptionFormGroup.querySelector("input")
   const descriptionError = descriptionFormGroup.querySelector("span")
 
-  const statusFormGroup = document.querySelector("#status-form-group")
-  const status = statusFormGroup.querySelector("input")
-  const statusError = statusFormGroup.querySelector("span")
-
-  const requestidFormGroup = document.querySelector("#requestuserid-form-group")
-  const requestid = requestidFormGroup.querySelector("input")
-  const requestidError = requestidFormGroup.querySelector("span")
-
   const testeridFormGroup = document.querySelector("#testeruserid-form-group")
   const testerid = testeridFormGroup.querySelector("input")
   const testeridError = testeridFormGroup.querySelector("span")
@@ -32,9 +24,7 @@ window.addEventListener('load', () => {
     let hasVersionError = false
     let hasTitleError = false
     let hasDescriptionError = false
-    let hasRequestIdError = false
     let hasTesterIdError = false
-    let hasStatusError = false
 
     if(version.value === "") {
         hasVersionError = true
@@ -62,11 +52,6 @@ window.addEventListener('load', () => {
  
     }
 
-    if(requestid.value === "") {
-        hasRequestIdError = true
-        requestidError.innerText = "O ID do solicitador é obrigatório"
-    }
-
     if(testerid.value === "") {
         hasTesterIdError = true
         testeridError.innerText = "O ID do tester é obrigatório"
@@ -91,28 +76,16 @@ window.addEventListener('load', () => {
       descriptionFormGroup.classList.remove("input-group-error")
     }
 
-    if(hasRequestIdError) {
-        requestidFormGroup.classList.add("input-group-error")
-      } else {
-        requestidFormGroup.classList.remove("input-group-error")
-    }
-
     if(hasTesterIdError) {
         testeridFormGroup.classList.add("input-group-error")
       } else {
         testeridFormGroup.classList.remove("input-group-error")
     }
-    
-    if(hasStatusError) {
-        statusFormGroup.classList.add("input-group-error")
-      } else {
-        statusFormGroup.classList.remove("input-group-error")
-    }
 
 
 
-    if(!(hasVersionError || hasTitleError || hasDescriptionError || hasStatusError || hasRequestIdError || hasTesterIdError)) {
-      Dialog.show("Sucesso", "Nova solicitação de teste criado")
+    if(!(hasVersionError || hasTitleError || hasDescriptionError || hasTesterIdError)) {
+      window.location = "/web/list-release-page.html"
     }
   })
 })

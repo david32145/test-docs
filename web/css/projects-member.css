@@ -11,7 +11,7 @@
     max-width: 600px;
     min-width: 450px;
     margin-top: 30px;
-    margin-bottom: 60px;
+    margin-bottom: 30px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -32,7 +32,8 @@
     font-weight: 300;
     font-size: 1.6rem;
     line-height: 1.9rem;
-    text-align: center;
+    text-align: left;
+    padding: 10px;
     transition: 1s;
 }
 

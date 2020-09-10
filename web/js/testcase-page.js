@@ -9,21 +9,9 @@ window.addEventListener('load', () => {
   const description = descriptionFormGroup.querySelector("input")
   const descriptionError = descriptionFormGroup.querySelector("span")
 
-  const statusFormGroup = document.querySelector("#status-form-group")
-  const status = statusFormGroup.querySelector("input")
-  const statusError = statusFormGroup.querySelector("span")
-
-  const reportFormGroup = document.querySelector("#report-form-group")
-  const report = reportFormGroup.querySelector("input")
-  const reportError = reportFormGroup.querySelector("span")
-
   const taskFormGroup = document.querySelector("#task-form-group")
   const task = taskFormGroup.querySelector("input")
   const taskError = taskFormGroup.querySelector("span")
-
-  const descriptionimageFormGroup = document.querySelector("#descriptionimage-form-group")
-  const descriptionimage = descriptionimageFormGroup.querySelector("input")
-  const descriptionimageError = descriptionimageFormGroup.querySelector("span")
 
   const form = document.querySelector('form')
   form.addEventListener("submit", event => {
@@ -31,10 +19,7 @@ window.addEventListener('load', () => {
 
     let hasTitleError = false
     let hasDescriptionError = false
-    let hasStatusError = false
-    let hasReportError = false
     let hasTaskError = false
-    let hasDescriptionImageError = false
 
     if(!title.value || title.value.length < 5) {
       hasTitleError = true
@@ -54,25 +39,9 @@ window.addEventListener('load', () => {
       }
     }
 
-    if(status.value === "") {
-        hasStatusError = true
-        statusError.innerText = "O status do teste é obrigatório"
- 
-    }
-
-    if(report.value === "") {
-        hasReportError = true
-        reportError.innerText = "A descrição é obrigatória"
-    }
-
     if(task.value === "") {
         hasTaskError = true
         taskError.innerText = "A task é obrigatória"
-    }
-
-    if(descriptionimage.value === "") {
-        hasdescriptionimageError = true
-        descriptionimageError.innerText = "A descrição da imagem é obrigatória"
     }
 
     if(hasTitleError) {
@@ -87,32 +56,13 @@ window.addEventListener('load', () => {
       descriptionFormGroup.classList.remove("input-group-error")
     }
 
-    if(hasStatusError) {
-        statusFormGroup.classList.add("input-group-error")
-      } else {
-        statusFormGroup.classList.remove("input-group-error")
-    }
-
-    if(hasReportError) {
-        reportFormGroup.classList.add("input-group-error")
-      } else {
-        reportFormGroup.classList.remove("input-group-error")
-    }
-
     if(hasTaskError) {
         taskFormGroup.classList.add("input-group-error")
       } else {
         taskFormGroup.classList.remove("input-group-error")
     }
 
-    if(hasDescriptionImageError) {
-        descriptionimageFormGroup.classList.add("input-group-error")
-      } else {
-        descriptionimageFormGroup.classList.remove("input-group-error")
-    }
-
-
-    if(!(hasTitleError || hasDescriptionError || hasStatusError || hasReportError || hasTaskError || hasDescriptionImageError )) {
+    if(!(hasTitleError || hasDescriptionError || hasTaskError )) {
       Dialog.show("Sucesso", "Novo caso de teste criado")
     }
   })

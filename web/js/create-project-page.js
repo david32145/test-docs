@@ -67,7 +67,7 @@ window.addEventListener('load', () => {
     }
 
     if(!(hasNameError || hasDescriptionError || hasGithubError)) {
-      Dialog.show("Sucesso", "Novo projeto criado")
+      window.location = "/web/view-project-page.html"
     }
   })
 })
