@@ -1,0 +1,103 @@
+body{
+    min-height: 600px;
+}
+
+.sign-up-container{
+    display: flex;
+    height: 100%;
+    width: 400px;
+    background-color: var(--primary-color);
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.sign-up-container form {
+    width: 100%;
+    padding: 0px 30px;
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+}
+
+.sign-up-container form h1 {
+    align-self: flex-start;
+    margin-bottom: 40px;
+    color: #FFFFFF;
+}
+
+.sign-up-container form .input-group {
+    margin-bottom: 15px;
+}
+
+.sign-up-container form .btn-form {
+    margin-top: 30px;
+}
+
+.sign-up-container form .link-help {
+    margin-top: 15px;
+}
+.sign-up-container form .helps{
+    display: flex;
+}
+.sign-up-container form .helps a{
+    margin-left: initial;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 15px;
+    color: #BCB8B1;
+    text-decoration: none;
+}
+.sign-up-container form .helps img{
+    margin-left: 150px;
+    border-radius: 5px;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: initial;
+    flex: 1;
+    margin-top: 15px;
+    margin-left: 100px;
+  }
+  
+  main .main-title {
+    margin-top: 35px;
+    font-size: 2.5rem;
+    line-height: 3.7rem;
+    color: var(--dark-text);
+    text-align: center;
+    max-width: 500px;
+    font-family: Roboto;
+    font-weight: bold;
+    font-size: 36px;
+    letter-spacing: 0.02em;
+    
+    color: #313638;
+  }
+
+  main .join-infos {
+    margin-top: 25px;
+    display: flex;
+    max-width: 800px;
+    flex-direction: row;
+    font-family: Roboto;
+  }
+  main .join-infos .info-item {
+    margin-top: 25px;
+    display: inline-flex;
+    max-width: 600px;
+    max-height: 200px;
+    font-family: Roboto;
+    font-size: 1.8em;
+    line-height: 1.2em;
+  }
+  main .join-infos .info-item label{
+    margin-left: 15px;
+  }
+  main .join-infos .info-pessoa{
+      margin-left: 142px;
+  }
