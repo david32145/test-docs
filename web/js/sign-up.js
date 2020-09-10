@@ -1,6 +1,7 @@
 const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const NOME_REGEX = /^[a-zA-ZéúíóáÉÚÍÓÁèùìòàçÇÈÙÌÒÀõãñÕÃÑêûîôâÊÛÎÔÂëÿüïöäËYÜÏÖÄ\-\ \s]+$/;
-const HTTP_REGEX = /(https?:\/\/[^\s]+)/g;
+const GITHUB_URI_REGEX = /^https:\/\/github.com\/(.)*\/(.)*/;
+
 window.addEventListener('load', () => {
     const emailFormGroup = document.querySelector("#email-form-group")
     const email = emailFormGroup.querySelector("input")
@@ -53,7 +54,7 @@ window.addEventListener('load', () => {
         }
         if(github.value === ""){
             hasGitHubError = false
-        }else if (!HTTP_REGEX.test(github.value)){
+        }else if (!GITHUB_URI_REGEX.test(github.value)){
             hasGitHubError = true
             githubError.innerText = "Link inválido"
         }
@@ -79,7 +80,7 @@ window.addEventListener('load', () => {
             gitFormGroup.classList.remove("input-group-error")
         }
         if (!hasEmailError && !hasPasswordError && !hasNomeError && !hasGitHubError) {
-            Dialog.show("Sucesso", "Você fez o cadastro com sucesso")
+            window.location = "/web/login-page.html"
         }
     })
 })
