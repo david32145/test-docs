@@ -8,7 +8,7 @@ const routes = [
     path: '/',
     name: '',
   }
-]
+] 
 
 const router = new VueRouter({
   mode: 'history',
