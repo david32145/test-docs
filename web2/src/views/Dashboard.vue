@@ -1,21 +1,103 @@
-body {
-    display: flex;
-    flex-direction: column;
-}
+<template>
+    <div class="page">
+        <main>
+            <div class="projects-header">
+                <h1>Projetos</h1>
+                <div class="container">
+                    <div class="project-search-container">
+                        <img src="@/assets/magnifying-glass.svg" alt="Lupa">
+                        <input type="text" v-model="project_search" name="project-search" id="project-search" placeholder="buscar">
+                    </div>
+                    <router-link to="createProject">
+                        <button>+</button>
+                    </router-link>
+                </div>
+            </div>
+    
+            <ul class="list-project">
+                <li v-for="project in projects" :key="project.id">
+                    <img :src="project.avatar_uri" alt="Avatar" class="avatar-project">
+                    <p>{{project.name}}</p>
+                    
+                    <NotificationIcon color='black'/>
 
-:root{
-    --gray: #7C8B99;
-    --gray-light: #91A2B2; 
-    --light-green: #F5F7FB;
-    --bg-fill: #F5F7FB;
-}
+                    <p class="members-number">{{project.membersNumber}} integrantes</p>
+                    <p class="project-owner">@{{project.nameOwner}}</p>
+                    
+                    <button v-on:click.prevent="goToProject(project.id)">
+                        <img src="@/assets/arrow-right.svg" alt="->">
+                    </button>
+                </li>
+            </ul>
+        </main>
+    
+        <div class="border-line"></div>
 
+        <Notifications/>
+    </div>
+</template>
+
+<script>
+
+import NotificationIcon from "@/components/NotificationIcon.vue"
+import Notifications from "@/components/Notifications.vue"
+
+export default {
+    name:"Dashboard",
+    components: {
+        NotificationIcon,
+        Notifications
+    },
+    props: {
+        //userId: Number
+    },
+    data() {
+        return {
+            userId: 0,  //deve se tornar um props
+            projectOwner: '',
+            membersNumber: 0,
+            project_search: '',
+            projects: [
+                {
+                    id: 0,
+                    avatar_uri: '@/assets/avatar.svg',
+                    membersNumber: 13,
+                    name: 'Uber',
+                    nameOwner: 'rafael.vieira'
+                },
+                {
+                    id: 1,
+                    avatar_uri: '@/assets/avatar.svg',
+                    membersNumber: 13,
+                    name: 'Uber',
+                    nameOwner: 'rafael.vieira'
+                },
+                {
+                    id: 2,
+                    avatar_uri: '@/assets/avatar.svg',
+                    membersNumber: 13,
+                    name: 'Uber',
+                    nameOwner: 'rafael.vieira'
+                },
+                {
+                    id: 3,
+                    avatar_uri: '@/assets/avatar.svg',
+                    membersNumber: 13,
+                    name: 'Uber',
+                    nameOwner: 'rafael.vieira'
+                },
+            ],
+        }
+    }
+}
+</script>
+
+<style>
 .page {
     width: 100%;
     height: 100%;
     margin: 0 auto;
     padding-top: 40px;
-    background-color: var(--bg-fill);
 
     display: flex;
     align-items: flex-start;
@@ -26,17 +108,19 @@ body {
     margin: 77px 72px 0;
     width: 0px;
     height: 70vh;
-    
     border: 1px solid var(--gray-light);
 }
 
 .page main {
+    max-width: 800px;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
 }
 
 main .projects-header {
+    width: 100%;
     margin-bottom: 32px;
 
     display: flex;
@@ -119,6 +203,8 @@ main .list-project {
     width: 100%;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .list-project li {
@@ -146,7 +232,7 @@ main .list-project {
     background: #FAFAFB;
 }
 
-.list-project li img {
+.list-project li .avatar-project {
     width: 40px;
     border-radius: 20px;
 }
@@ -160,40 +246,6 @@ main .list-project {
     text-align: justify;
     letter-spacing: 0.02em;
     color: var(--dark-text);
-}
-
-.list-project li .icon-notifications-container {
-    position: relative;
-    cursor: pointer;
-    width: 31px;
-    height: 31px;
-}
-
-.list-project li .icon-notifications-container img {
-    width: 25px;
-    height: 25px;
-}
-
-.list-project li .icon-notifications-container .notifications-number {
-    width: 18px;
-    height: 18px;
-    background-color: var(--bg-blue);
-    color: #FFFFFF;
-    border-radius: 9px;
-
-    font-weight: bold;
-    font-size: 1.0rem;
-    line-height: 1.2rem;
-    text-align: center;
-    
-    position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    top: 0;
-    left: 0;
-    transform: translate(70%, -40%);
 }
 
 .list-project li .members-number {
@@ -217,7 +269,7 @@ main .list-project {
     color: var(--gray);
 }
 
-.list-project li a {
+.list-project li button {
     width: 45px;
     height: 45px;
     background: var(--bg-blue);
@@ -231,93 +283,15 @@ main .list-project {
     transition-duration: 0.02s;
 }
 
-.list-project li a:hover {
+.list-project li button:hover {
     transform: scale(1.08,1.08);
 }
 
-.list-project li a img {
+.list-project li button img {
     width: 16px;
     height: 16px;
 }
 
-.page .notifications {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.notifications .notifications-header {
-    width: 100%;
-    margin-bottom: 32px;
-
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-}
-
-.notifications-header h1 {
-    font-weight: 500;
-    font-size: 2.2rem;
-    color: var(--dark-text);
-}
-
-.notifications .list-notification {
-    margin-bottom: 15px;
-    display: flex;
-    cursor: pointer;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.notifications .list-notification li {
-    width: 340px;
-    height: 66px;
-    margin-bottom: 15px;
-    background-color: #FFFFFF;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: 0.2s;
-}
-
-.notifications .list-notification li:hover {
-    transform: scale(1.05,1.05);
-}
-
-.list-notification li img {
-    width: 40px;
-    height: 40px;
-    margin-right: 14px;
-}
-
-.list-notification li .content-notification {
-    width: 246px;
-    display: flex;
-    flex-direction: column;
-}
-
-.list-notification li .content-notification p {
-    font-size: 1.6rem;
-    line-height: 1.9rem;
-    text-align: justify;
-    color: var(--dark-text);
-}
-
-.list-notification li .content-notification .version-project{
-    font-weight: bold;
-    font-size: 1.4rem;
-    line-height: 1.6rem;
-    color: var(--bg-blue);
-
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    text-align: justify;
-    text-decoration-line: underline;
-}
 
 @media (max-width: 1350px) {
     .page .border-line {
@@ -336,7 +310,7 @@ main .list-project {
         margin: 0 auto;
     }
     
-    .page .border-line, .page .notifications {
+    .page .border-line {
         display: none;
     }
 }
@@ -375,3 +349,4 @@ main .list-project {
         transform: scale(0.85);
     }
 }
+</style>
