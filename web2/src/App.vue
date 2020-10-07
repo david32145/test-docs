@@ -9,7 +9,7 @@
 export default {
   name: 'App',
 }
-</script>>
+</script>
 
 <style>
 html, body {
@@ -45,6 +45,9 @@ input, span, button {
   font-family: "Roboto", Arial, Helvetica, sans-serif;
 }
 
+a {
+  text-decoration: none;
+}
 
 :root{
   --primary-color: #343A40;

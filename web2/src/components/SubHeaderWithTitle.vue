@@ -8,14 +8,18 @@
 export default {
     name:'SubHeader',
     props: {
-        title: String
+        title: {
+            type: String,
+            required: true
+        }
     },
 }
 </script>
 
-<style>
+<style scoped>
 #sub-header {
     min-height: 60px;
+    background-color: #FFFFFF;
     display: flex;
     flex-direction: row;
     align-items: center;

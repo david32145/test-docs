@@ -15,8 +15,10 @@
             </div>
     
             <ul class="list-project">
-                <li v-for="project in projects" :key="project.id">
-                    <img :src="project.avatar_uri" alt="Avatar" class="avatar-project">
+                <li v-for="project in filteredProjects" :key="project.id">
+                    <img v-if="project.avatar_uri === ''" src="@/assets/avatar.svg" alt="Avatar" class="avatar-project">
+                    <img v-else :src="project.avatar_uri" alt="Avatar" class="avatar-project">
+                    
                     <p>{{project.name}}</p>
                     
                     <NotificationIcon color='black'/>
@@ -24,9 +26,11 @@
                     <p class="members-number">{{project.membersNumber}} integrantes</p>
                     <p class="project-owner">@{{project.nameOwner}}</p>
                     
-                    <button v-on:click.prevent="goToProject(project.id)">
-                        <img src="@/assets/arrow-right.svg" alt="->">
-                    </button>
+                    <router-link to='project'>
+                        <button>
+                            <img src="@/assets/arrow-right.svg" alt="->">
+                        </button>
+                    </router-link>
                 </li>
             </ul>
         </main>
@@ -49,20 +53,19 @@ export default {
         Notifications
     },
     props: {
-        //userId: Number
+        //userId:  {type: Number,required: true}
     },
-    data() {
+    data: function() {
         return {
-            userId: 0,  //deve se tornar um props
             projectOwner: '',
             membersNumber: 0,
             project_search: '',
             projects: [
                 {
                     id: 0,
-                    avatar_uri: '@/assets/avatar.svg',
+                    avatar_uri: '',
                     membersNumber: 13,
-                    name: 'Uber',
+                    name: 'Amazon',
                     nameOwner: 'rafael.vieira'
                 },
                 {
@@ -81,21 +84,28 @@ export default {
                 },
                 {
                     id: 3,
-                    avatar_uri: '@/assets/avatar.svg',
+                    avatar_uri: '',
                     membersNumber: 13,
                     name: 'Uber',
                     nameOwner: 'rafael.vieira'
                 },
             ],
         }
-    }
+    },
+    computed: {
+        filteredProjects: function() {
+            if(this.project_search === '')
+                return this.projects
+            return this.projects.filter(project => {
+                return project.name.toLowerCase().includes(this.project_search.toLowerCase())
+            });
+        }
+    },
 }
 </script>
 
 <style>
 .page {
-    width: 100%;
-    height: 100%;
     margin: 0 auto;
     padding-top: 40px;
 

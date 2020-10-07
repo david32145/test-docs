@@ -1,7 +1,7 @@
 <template>
     <div class="icon-notifications-container">
-        <img v-if="color === 'white'" class="notification-light" src="@/assets/notification-light.svg" alt="Icone de Notificações">
-        <img v-else class="notification-dark"  src="@/assets/notification-dark.svg" alt="Icone de Notificações">
+        <img v-if="color === 'white'" :class="`notification-${color}`" src="@/assets/notification-light.svg" alt="Icone de Notificações">
+        <img v-else :class="`notification-${color}`" src="@/assets/notification-dark.svg" alt="Icone de Notificações">
         <span class="notifications-number">10</span><br>
     </div>
 </template>
@@ -10,7 +10,10 @@
 export default {
     name: 'NotificationIcon',
     props: {
-        color: String
+        color: {
+            type: String,
+            required: true
+        }
     },
 }
 </script>
@@ -28,12 +31,12 @@ export default {
     justify-content: center;
 }
 
-.notification-light {
+.notification-white {
     width: 22px;
     height: 22px;
 }
 
-.notification-dark {
+.notification-black {
     width: 25px;
     height: 25px;
 }

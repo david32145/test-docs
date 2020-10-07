@@ -18,6 +18,6 @@ export default {
 
 <style>
 #project-page {
-    height: 100%;
+    background-color: var(--light-green);
 }
 </style>

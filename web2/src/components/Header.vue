@@ -3,7 +3,7 @@
         <div class="header-container">
             <div class="logo-and-title-container">
                 <img src="@/assets/logo.svg" alt="Logo">
-                <router-link to="dashboard">
+                <router-link :to="{name: 'Dashboard'}">
                     <span>Dashboard</span>
                 </router-link>
                 
@@ -55,7 +55,7 @@ header .header-container{
 .logo-and-title-container img {
     width: 40px;
     height: 40px;
-    margin-right: 35px;
+    margin-right: 20px;
 }
 
 .logo-and-title-container span {
