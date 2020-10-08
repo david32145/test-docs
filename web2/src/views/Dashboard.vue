@@ -8,7 +8,7 @@
                         <img src="@/assets/magnifying-glass.svg" alt="Lupa">
                         <input type="text" v-model="project_search" name="project-search" id="project-search" placeholder="buscar">
                     </div>
-                    <router-link to="createProject">
+                    <router-link to="projectCreate">
                         <button>+</button>
                     </router-link>
                 </div>
@@ -16,17 +16,16 @@
     
             <ul class="list-project">
                 <li v-for="project in filteredProjects" :key="project.id">
-                    <img v-if="project.avatar_uri === ''" src="@/assets/avatar.svg" alt="Avatar" class="avatar-project">
-                    <img v-else :src="project.avatar_uri" alt="Avatar" class="avatar-project">
+                    <img :src="project.avatar_uri" alt="Avatar" class="avatar-project">
                     
                     <p>{{project.name}}</p>
                     
                     <NotificationIcon color='black'/>
 
                     <p class="members-number">{{project.membersNumber}} integrantes</p>
-                    <p class="project-owner">@{{project.nameOwner}}</p>
+                    <p class="project-owner">@{{getOwnerName(project.owner_id)}}</p>
                     
-                    <router-link to='project'>
+                    <router-link :to='`project/${project.id}`'>
                         <button>
                             <img src="@/assets/arrow-right.svg" alt="->">
                         </button>
@@ -52,44 +51,11 @@ export default {
         NotificationIcon,
         Notifications
     },
-    props: {
-        //userId:  {type: Number,required: true}
-    },
     data: function() {
         return {
-            projectOwner: '',
-            membersNumber: 0,
+            userId: 0,
             project_search: '',
-            projects: [
-                {
-                    id: 0,
-                    avatar_uri: '',
-                    membersNumber: 13,
-                    name: 'Amazon',
-                    nameOwner: 'rafael.vieira'
-                },
-                {
-                    id: 1,
-                    avatar_uri: '@/assets/avatar.svg',
-                    membersNumber: 13,
-                    name: 'Uber',
-                    nameOwner: 'rafael.vieira'
-                },
-                {
-                    id: 2,
-                    avatar_uri: '@/assets/avatar.svg',
-                    membersNumber: 13,
-                    name: 'Uber',
-                    nameOwner: 'rafael.vieira'
-                },
-                {
-                    id: 3,
-                    avatar_uri: '',
-                    membersNumber: 13,
-                    name: 'Uber',
-                    nameOwner: 'rafael.vieira'
-                },
-            ],
+            projects: [],
         }
     },
     computed: {
@@ -100,6 +66,45 @@ export default {
                 return project.name.toLowerCase().includes(this.project_search.toLowerCase())
             });
         }
+    },
+    methods: {
+        getOwnerName(userId) {
+            return 'rafael.vieira'
+        }
+    },
+    beforeRouteEnter(to, from, next) {
+        next(vm => {
+            vm.projects = [
+                {
+                    id: 0,
+                    avatar_uri: '',
+                    membersNumber: 13,
+                    name: 'Amazon',
+                    owner_id: 0
+                },
+                {
+                    id: 1,
+                    avatar_uri: '@/assets/avatar.svg',
+                    membersNumber: 13,
+                    name: 'Uber',
+                    owner_id: 1
+                },
+                {
+                    id: 2,
+                    avatar_uri: '@/assets/avatar.svg',
+                    membersNumber: 13,
+                    name: '99',
+                    owner_id: 2
+                },
+                {
+                    id: 3,
+                    avatar_uri: '',
+                    membersNumber: 13,
+                    name: 'Uber',
+                    owner_id: 3
+                },
+            ]
+        })
     },
 }
 </script>

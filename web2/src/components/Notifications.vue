@@ -24,7 +24,12 @@ export default {
     name:"Notifications",
     data: function() {
         return {
-            notifications: [
+            notifications: []
+        }
+    },
+    beforeRouteEnter(to, from, next) {
+        next(vm => {
+            vm.notifications = [
                 {
                     type: 'info',
                     projectName: 'Uber',
@@ -44,8 +49,8 @@ export default {
                     projectVersion: 'v1.0.0'
                 },
             ]
-        }
-    }
+        })
+    },
 };
 </script>
 

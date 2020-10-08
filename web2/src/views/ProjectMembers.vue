@@ -9,7 +9,7 @@
                     <li 
                         v-for="user in filteredUsers" 
                         :key="user.id"
-                        v-on:click="addMember(user.id)" 
+                        click="addMember(user.id)" 
                     >
                         <p>{{user.name}}</p>
                     </li>
@@ -17,7 +17,7 @@
             </div>
         </div>
         <ul class="members-list">
-            <li v-for="member in members" :key="member.id" class="members-list-item">
+            <li v-for="(member,index) in members" :key="member.id" class="members-list-item">
                 <div class="member-data">
                     <img :src="member.avatar_uri" alt="Avatar">
                     <div class="member-info">
@@ -30,7 +30,7 @@
                         <p class="member-email">{{member.email}}</p>
                     </div>
                 </div>
-                <button v-on:click="removeProject(member.id)">Remover</button>
+                <button @click="removeMember(index, member.id)">Remover</button>
             </li>
         </ul>
     </main>
@@ -42,7 +42,34 @@ export default {
     data: function() {
         return {
             owner_id: 0,
-            users: [
+            users: [],
+            searched_member: '',
+            members: []
+        }
+    },
+    computed: {
+        filteredUsers() {
+            if(this.searched_member) {
+                return this.users.filter(user => {
+                    let pos = this.members.findIndex(member => member.id === user.id)
+                    let hasString = user.name.toLowerCase().includes(this.searched_member)
+                    return (pos === -1) && hasString
+                })
+            }
+            return []
+        },
+    },
+    methods: {
+        addMember(newMemberId) {
+            this.members.push(this.users.find(user => user.id === newMemberId))
+        },
+        removeMember(index, removedMemberId) {
+            this.members.splice(index,1)
+        },
+    },
+    beforeRouteEnter(to, from, next) {
+        next(vm => {
+            vm.users = [
                 {
                     id: 0,
                     avatar_uri: '@/assets/user_avatar.svg',
@@ -61,9 +88,8 @@ export default {
                     name: 'Lucas Evangelista',
                     email: 'nascimento@gmail.com'
                 },
-            ],
-            searched_member: '',
-            members: [
+            ]
+            vm.members = [
                 {
                     id: 0,
                     avatar_uri: '@/assets/user_avatar.svg',
@@ -71,28 +97,12 @@ export default {
                     email: 'nascimento@gmail.com'
                 },
             ]
-        }
+            /* getOwnerId */
+            let projectId = vm.$route.params.projectId
+            // requisição axios para pegar o owner_id do projeto ...
+            vm.owner_id = 0
+        })
     },
-    computed: {
-        filteredUsers() {
-            if(this.searched_member) {
-                return this.users.filter(user => {
-                    let pos = this.members.findIndex(member => member.id === user.id)
-                    let hasString = user.name.toLowerCase().includes(this.searched_member)
-                    return (pos === -1) && hasString
-                })
-            }
-            return []
-        },
-    },
-    methods: {
-        addMember(id) {
-            this.members.push(this.users.find(user => user.id === id))
-        },
-        removeProject(id) {
-            this.members = this.members.filter(member => member.id !== id)
-        },
-    }
 }
 </script>
 

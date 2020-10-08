@@ -4,7 +4,7 @@ import Main from '@/views/Main.vue'
 import Dashboard from '@/views/Dashboard.vue'
 
 import Project from '@/views/Project.vue'
-import CreateProject from '@/views/CreateProject.vue'
+import ProjectCreate from '@/views/ProjectCreate.vue'
 import ProjectView from '@/views/ProjectView.vue'
 import ProjectMembers from '@/views/ProjectMembers.vue'
 import ProjectReleases from '@/views/ProjectReleases.vue'
@@ -23,7 +23,7 @@ const routes = [
         component: Dashboard
       },
       {
-        path: 'project',
+        path: 'project/:projectId',
         name: 'Project',
         component: Project,
         children: [
@@ -53,9 +53,9 @@ const routes = [
         ]
       },
       {
-        path: 'createProject',
-        name: 'CreateProject',
-        component: CreateProject,
+        path: 'projectCreate',
+        name: 'ProjectCreate',
+        component: ProjectCreate,
       },
       {
         path: '',

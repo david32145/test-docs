@@ -8,7 +8,7 @@
                 </router-link>
             </div>
             <ul class="release-list">
-                <li v-for="release_test in releases_tests" :key="release_test.id" class="release-list-item">
+                <li v-for="(release_test, index) in releases_tests" :key="release_test.id" class="release-list-item">
                     <img v-if="release_test.status==='approved'" src="@/assets/check-dark.svg" alt="Icon checked dark">
                     <img v-else-if="release_test.status==='processing'" src="@/assets/clock-dark.svg" alt="Icon clock dark">
                     <img v-else src="@/assets/close-dark.svg" alt="Icon close dark">
@@ -17,7 +17,7 @@
                         <span>v.{{release_test.version}}</span>
                         <p>Requisitada para {{release_test.userNameRequest}}</p>
                     </div>
-                    <button v-if="release_test.status==='processing'" v-on:click="removeRelease(release_test.id)" class="btn-delete-release">Remover</button>
+                    <button v-if="release_test.status==='processing'" @click="removeRelease(index, release_test.id)" class="btn-delete-release">Remover</button>
                     <span v-else class="status-text">{{release_test.description}}</span>
                 </li>
             </ul>
@@ -31,7 +31,17 @@ export default {
     name: 'ProjectReleases',
     data: function() {
         return {
-            releases_tests: [
+            releases_tests: [],
+        }
+    },
+    methods: {
+        removeRelease(index, removedReleaseId) {
+            this.releases_tests.splice(index,1)
+        } 
+    },
+    beforeRouteEnter(to, from, next) {
+        next(vm => {
+            vm.releases_tests = [
                 {
                     id: 0,
                     title: 'Titulo',
@@ -84,13 +94,8 @@ export default {
                     userNameRequest: 'Rafael',
                     version: '1.1.1'
                 },
-            ],
-        }
-    },
-    methods: {
-        removeRelease(id) {
-            this.releases_tests = this.releases_tests.filter(release_test => release_test.id !== id)
-        } 
+            ]
+        })
     },
 }
 </script>

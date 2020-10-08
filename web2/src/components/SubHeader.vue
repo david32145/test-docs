@@ -7,7 +7,7 @@
         <div class="tab">
             <div v-for="(submenu, index) in activatedSubmenus" 
                 :key="index" 
-                v-on:click="switchActivate(index)"
+                @click="switchActivate(index)"
                 :class="{'tab-active': submenu.active}" 
                 class="tab-item"
             >
@@ -32,14 +32,11 @@
 <script>
 export default {
     name:'SubHeader',
-    props: {
-        //id:int
-    },
     data: function() {
         return {
             project: {
-                avatar_uri: '',
-                name: '',
+                avatar_uri: '@/assets/avatar.svg',
+                name: 'Uber'
             },
             submenus: [
                 {
@@ -62,12 +59,9 @@ export default {
     },
     methods: {
         switchActivate(index) {
-            /*
-            console.log(this.$router.history.current)
-            console.log(this.$router.history.pending)
-            */
             this.submenus.forEach(submenu => {
-                submenu.active = this.$router.history.current.path.includes(submenu.path)
+                const currentPath = this.$router.history.current.path
+                submenu.active = currentPath.includes(submenu.path)
             })
         }
     },

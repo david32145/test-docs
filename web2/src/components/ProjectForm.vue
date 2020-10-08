@@ -1,7 +1,7 @@
 <template>
     <div>
         <main>
-            <form action="#" v-on:submit.prevent="send">
+            <form action="#" @submit.prevent="send">
                 <div :class="['input-group', 'input-group-ligth', {'input-group-error': hasNameError}]" id="name-form-group">
                     <label for="name">Nome</label>
                     <input type="text" v-model="name" id="name" placeholder="Uber Technologies Inc.">
@@ -36,7 +36,7 @@ import Dialog from '@/components/Dialog.vue'
 const GITHUB_URI_REGEX = /^https:\/\/github.com\/(.)*\/(.)*/
 
 export default {
-    name: 'FormProject',
+    name: 'ProjectForm',
     components: {
         Dialog
     },

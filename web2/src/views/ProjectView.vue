@@ -11,8 +11,8 @@
                     <p>{{project.github_repo_uri}}</p>
                 </div>
                 <button 
-                    v-if="owner_project_id === project.owner_id"
-                    v-on:click="display = !display" 
+                    v-if="userId === project.owner_id"
+                    @click="display = !display" 
                     type="button"
                     class="btn-form btn-edit"
                 >
@@ -21,13 +21,13 @@
             </div>
         </main>
 
-        <FormProject v-else objective='update'/>
+        <ProjectForm v-else objective='update'/>
 
     </div>
 </template>
 
 <script>
-import FormProject from '@/components/FormProject.vue'
+import ProjectForm from '@/components/ProjectForm.vue'
 import Dialog from '@/components/Dialog.vue'
 
 const GITHUB_URI_REGEX = /^https:\/\/github.com\/(.)*\/(.)*/
@@ -36,49 +36,28 @@ export default {
     name: 'ProjectView',
     components: {
         Dialog,
-        FormProject
+        ProjectForm
     },
     data: function() {
         return {
-            owner_project_id: 0,
-            project: {
+            userId: 0,
+            project: {},
+            display: true,
+        }
+    },
+    beforeRouteEnter(to, from, next) {
+        next(vm => {
+            vm.project = {
                 owner_id: 0,
                 description: 'Lorem Ipsum is simply dummy text of the printin.Lorem Ipsum is simply dummy text of the printin.',
                 github_repo_uri: 'https://github.com/vuejs/vue'
-            },
-            display: true,
-        }
+            }
+        })
     },
 }
 </script>
 
 <style>
-body {
-    display: flex;
-    flex-direction: column;
-}
-
-.project-info {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 0 28px;
-}
-
-.project-info span {
-    font-family: Roboto;
-    font-weight: 500;
-    margin-left: 35px;
-    font-size: 2.0rem;
-    text-align: center;
-    letter-spacing: 0.02em;
-    color: var(--dark-text);
-}
-
-.project-info img {
-    width: 35px;
-}
-
 main {
     display: grid;
     grid-template-columns: 1fr 600px 1fr;

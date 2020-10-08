@@ -12,14 +12,17 @@ export default {
     props: {
         color: {
             type: String,
-            required: true
-        }
+            required: true,
+            default: 'black',
+            validator: function(value) {
+                return ['white','black'].includes(value)
+            }
+        },
     },
 }
 </script>
 
 <style>
-
 .icon-notifications-container {
     width: 31px;
     height: 31px;
