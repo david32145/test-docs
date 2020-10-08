@@ -34,6 +34,8 @@ export default {
     name:'SubHeader',
     data: function() {
         return {
+            opcional: false,
+            projectId: 0,
             project: {
                 avatar_uri: '@/assets/avatar.svg',
                 name: 'Uber'
@@ -57,12 +59,21 @@ export default {
             ]
         }
     },
+    // mounted: function() {
+    //     this.getInfoProject()
+    // },
     methods: {
+        getInfoProject() {
+            //GET - no projeto, para obter suas informações atualizadas
+            this.project.avatar_uri = 'https://d3i4yxtzktqr9n.cloudfront.net/uber-sites/f452c7aefd72a6f52b36705c8015464e.jpg'
+            this.project.name = 'Uber'
+        },
         switchActivate(index) {
             this.submenus.forEach(submenu => {
                 const currentPath = this.$router.history.current.path
                 submenu.active = currentPath.includes(submenu.path)
             })
+            this.getInfoProject()
         }
     },
     computed: {
@@ -70,6 +81,11 @@ export default {
             this.submenus.forEach(submenu => {
                 submenu.active = this.$router.history.current.path.includes(submenu.path)
             })
+            if(this.opcional){
+                this.getInfoProject()
+                console.log('Alterou')
+            }
+            this.opcional = !this.opcional
             return this.submenus
         }
     },
@@ -102,7 +118,8 @@ export default {
 }
 
 .project-info img {
-    width: 35px;
+    width: 40px;
+    border-radius:25px;
 }
 
 .tab {

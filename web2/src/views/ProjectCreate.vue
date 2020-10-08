@@ -2,7 +2,7 @@
     <div id="create-project-page">
         <SubHeaderWithTitle title="Criar novo projeto"/>
         
-        <ProjectForm objective='create'/>
+        <ProjectForm action='create'/>
 
         <Dialog/>
     </div>

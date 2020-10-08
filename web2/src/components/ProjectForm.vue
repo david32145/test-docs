@@ -22,7 +22,7 @@
                     <input type="file" hidden="true">
                 </div>
                 <button type="submit" class="btn-form"> 
-                    {{(objective==='create') ? 'Criar' : 'Editar'}} Projeto
+                    {{(action==='create') ? 'Criar' : 'Editar'}} Projeto
                 </button>
             </form>
         </main>
@@ -41,10 +41,10 @@ export default {
         Dialog
     },
     props: {
-        objective: {   //o form deve fazer: create ou update ?
+        action: {
             type: String,
             required: true
-        }, 
+        },
     },
     data: function() {
         return {
@@ -63,13 +63,13 @@ export default {
     methods: {
         send() {
             if(this.fieldsValidation()) {
-                if(this.objective === 'create') {
-                    this.$router.push({name: 'ProjectView'})
+                if(this.action === 'create') {
                     //POST
+                    const projectId = 0
+                    this.$router.push(`project/${projectId}/`)
                 } else {
                     //PUT
-                    this.$router.push({name: 'ProjectReleases'})
-                    //this.$router.refresh()
+                    this.$parent.display = !this.$parent.display
                 }
             }
         },

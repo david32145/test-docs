@@ -21,7 +21,7 @@
             </div>
         </main>
 
-        <ProjectForm v-else objective='update'/>
+        <ProjectForm v-else action='update' :opcional='display'/>
 
     </div>
 </template>

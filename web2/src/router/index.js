@@ -23,7 +23,7 @@ const routes = [
         component: Dashboard
       },
       {
-        path: 'project/:projectId',
+        path: 'project/:projectId(\\d+)',
         name: 'Project',
         component: Project,
         children: [
