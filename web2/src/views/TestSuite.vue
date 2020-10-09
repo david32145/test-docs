@@ -70,27 +70,10 @@ export default {
 </script>
 
 <style>
-.test-suite body {
+.test-suite {
+    height: 100%;
     display: flex;
     flex-direction: column;
-  }
-  
-  #sub-header {
-    min-height: 60px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  #sub-header h1 {
-    font-family: Roboto;
-    font-weight: 500;
-    font-size: 2.2rem;
-    line-height: 2.6rem;
-    text-align: center;
-    letter-spacing: 0.02em;
-    color: var(--dark-text);
   }
   
   .test-suite main {

@@ -34,12 +34,8 @@ export default {
     name:'SubHeader',
     data: function() {
         return {
-            opcional: false,
             projectId: 0,
-            project: {
-                avatar_uri: '@/assets/avatar.svg',
-                name: 'Uber'
-            },
+            project: {},
             submenus: [
                 {
                     title: 'Informações',
@@ -59,9 +55,9 @@ export default {
             ]
         }
     },
-    // mounted: function() {
-    //     this.getInfoProject()
-    // },
+    created: function() {
+        this.getInfoProject()
+    },
     methods: {
         getInfoProject() {
             //GET - no projeto, para obter suas informações atualizadas
@@ -69,8 +65,8 @@ export default {
             this.project.name = 'Uber'
         },
         switchActivate(index) {
+            const currentPath = this.$router.currentRoute.path
             this.submenus.forEach(submenu => {
-                const currentPath = this.$router.history.current.path
                 submenu.active = currentPath.includes(submenu.path)
             })
             this.getInfoProject()
@@ -78,21 +74,18 @@ export default {
     },
     computed: {
         activatedSubmenus() {
+            const currentPath = this.$router.currentRoute.path
             this.submenus.forEach(submenu => {
-                submenu.active = this.$router.history.current.path.includes(submenu.path)
+                submenu.active = currentPath.includes(submenu.path)
             })
-            if(this.opcional){
-                this.getInfoProject()
-                console.log('Alterou')
-            }
-            this.opcional = !this.opcional
+            this.getInfoProject()
             return this.submenus
         }
     },
 }
 </script>
 
-<style>
+<style scoped>
 #sub-header {
     min-height: 60px;
     background-color: #FFFFFF;

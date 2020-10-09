@@ -1,83 +1,81 @@
 <template>
-<div class="signup-page">
-<body>
-    <main>
-        <h2 class="main-title">Junte-se ao Test Docs</h2>
-        <div class="join-infos">
-            <div class="join-infos-items">
-                <div class="info-item">
-                    <img src="@/assets/correct1.svg" alt="icon">
-                    <label for="info-a">Faça solicitações de testes para usuários específicos.</label>
-                </div>
-                 
-                <div class="info-item">
-                    <img src="@/assets/correct2.svg" alt="icon">
-                    <label for="info-b">Monte suítes de testes, com casos personalizados para cada projeto.</label>
-                </div>
-                
-                <div class="info-item">
-                    <img src="@/assets/correct1.svg" alt="icon">
-                    <label for="info-a">Conecte seu projeto com o github, referenciando releases e issues.</label>
-                </div>
+    <div class="signup-page">
+        <main>
+            <h2 class="main-title">Junte-se ao Test Docs</h2>
+            <div class="join-infos">
+                <div class="join-infos-items">
+                    <div class="info-item">
+                        <img src="@/assets/correct1.svg" alt="icon">
+                        <label for="info-a">Faça solicitações de testes para usuários específicos.</label>
+                    </div>
+                    
+                    <div class="info-item">
+                        <img src="@/assets/correct2.svg" alt="icon">
+                        <label for="info-b">Monte suítes de testes, com casos personalizados para cada projeto.</label>
+                    </div>
+                    
+                    <div class="info-item">
+                        <img src="@/assets/correct1.svg" alt="icon">
+                        <label for="info-a">Conecte seu projeto com o github, referenciando releases e issues.</label>
+                    </div>
 
-                <div class="info-item">
-                    <img src="@/assets/correct2.svg" alt="icon">
-                    <label for="info-b">Forneça feedback para cada caso de teste informando onde está os erros ou acertos</label>
-                </div>
+                    <div class="info-item">
+                        <img src="@/assets/correct2.svg" alt="icon">
+                        <label for="info-b">Forneça feedback para cada caso de teste informando onde está os erros ou acertos</label>
+                    </div>
 
-                <div class="info-item">
-                    <img src="@/assets/correct1.svg" alt="icon">
-                    <label for="info-a">Receba notificações pelo seu email e quando entrar no sistema.</label>
+                    <div class="info-item">
+                        <img src="@/assets/correct1.svg" alt="icon">
+                        <label for="info-a">Receba notificações pelo seu email e quando entrar no sistema.</label>
+                    </div>
                 </div>
-            </div>
-            <div class="info-pessoa">
-                <img src="@/assets/image.svg" alt="Pessoa"> 
-            </div>         
-        </div>        
-    </main>
-    <div class="sign-up-container">
-        <form action="#" autocomplete="off">
-            <h1>Sign-Up</h1>
-            <div class="input-group" id="email-form-group">
-              <label for="email">Email</label>
-              <input type="text" id="email" placeholder="Digite seu email" v-model="email">
-              <span>Email inválido</span>
-            </div>
-            <div class="input-group" id="password-form-group">
-              <label for="password">Senha</label>
-              <input type="password" id="password" placeholder="Digite sua senha" v-model="password">
-              <span>Senha inválida</span>
-            </div>
-            <div class="input-group" id="nome-form-group">
-                <label for="nome">Nome</label>
-                <input type="text" id="nome" placeholder="Digite seu nome" v-model="nome">
-                <span>Nome errado</span>
-            </div>
-            <div class="input-group" id="cargo-form-group">
-                <label for="cargo">Cargo</label>
-                <input type="text" id="cargo" placeholder="Programador" v-model="cargo">
-                <span>Cargo inválido</span>
-            </div>
-            <div class="input-group" id="descricao-form-group">
-                <label for="descricao">Descrição</label>
-                <input type="text" id="descricao" placeholder="Descreva-se aqui" v-model="descricao">
-                <span>Descricao inválido</span>
-            </div>
-            <div class="input-group" id="github-form-group">
-                <label for="github">GitHub</label>
-                <input type="text" id="github" placeholder="https://github.com/user" v-model="github">
-                <span>Link inválida</span>
-            </div>
-            <div class="helps">
-                <a href="" class="link-help"><router-link to="*">Já tenho uma conta</router-link></a>
-                <img src="@/assets/avatar.png" alt="Avatar">
-            </div>
-            <button @click="postRegister" class="btn-form">Cadastrar</button>
-          </form>
+                <div class="info-pessoa">
+                    <img src="@/assets/image.svg" alt="Pessoa"> 
+                </div>         
+            </div>        
+        </main>
+        <div class="sign-up-container">
+            <form action="#" autocomplete="off">
+                <h1>Sign-Up</h1>
+                <div class="input-group" id="email-form-group">
+                    <label for="email">Email</label>
+                    <input type="text" id="email" placeholder="Digite seu email" v-model="email">
+                    <span>Email inválido</span>
+                </div>
+                <div class="input-group" id="password-form-group">
+                    <label for="password">Senha</label>
+                    <input type="password" id="password" placeholder="Digite sua senha" v-model="password">
+                    <span>Senha inválida</span>
+                </div>
+                <div class="input-group" id="nome-form-group">
+                    <label for="nome">Nome</label>
+                    <input type="text" id="nome" placeholder="Digite seu nome" v-model="nome">
+                    <span>Nome errado</span>
+                </div>
+                <div class="input-group" id="cargo-form-group">
+                    <label for="cargo">Cargo</label>
+                    <input type="text" id="cargo" placeholder="Programador" v-model="cargo">
+                    <span>Cargo inválido</span>
+                </div>
+                <div class="input-group" id="descricao-form-group">
+                    <label for="descricao">Descrição</label>
+                    <input type="text" id="descricao" placeholder="Descreva-se aqui" v-model="descricao">
+                    <span>Descricao inválido</span>
+                </div>
+                <div class="input-group" id="github-form-group">
+                    <label for="github">GitHub</label>
+                    <input type="text" id="github" placeholder="https://github.com/user" v-model="github">
+                    <span>Link inválida</span>
+                </div>
+                <div class="helps">
+                    <a href="" class="link-help"><router-link to="*">Já tenho uma conta</router-link></a>
+                    <img src="@/assets/avatar.png" alt="Avatar">
+                </div>
+                <button @click="postRegister" class="btn-form">Cadastrar</button>
+            </form>
+        </div>
+        <Dialog></Dialog>
     </div>
-    <Dialog></Dialog>
-</body>
-</div>
 </template>
 
 <script>
@@ -194,9 +192,11 @@ export default {
 </script>
 
 <style>
-.signup-page body{
+.signup-page {
+    height: 100%;
     min-height: 660px;
     overflow: auto;
+    display: flex;
 }
 
 .signup-page .sign-up-container{

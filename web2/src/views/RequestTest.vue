@@ -1,5 +1,5 @@
 <template>
-  <div class="request-test">
+    <div class="request-test">
     <Header></Header>
     <SubHeaderWithTitle title="Criar nova solicitação de teste"/>
 
@@ -40,9 +40,9 @@ import Dialog from '@/components/Dialog.vue'
 export default {
     name: "RequestTest",
     components: {
-      Header,
-      SubHeaderWithTitle,
-      Dialog
+        Header,
+        SubHeaderWithTitle,
+        Dialog
     },
     data: function() {
         return {
@@ -135,55 +135,41 @@ export default {
 </script>
 
 <style>
-.request-test body {
+
+.request-test {
+    height: 85%;
+    background-color: var(--light-green);
     display: flex;
     flex-direction: column;
-  }
-  
-   #sub-header {
-    min-height: 60px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-  }
-  
-   #sub-header h1 {
-    font-family: Roboto;
-    font-weight: 500;
-    font-size: 2.2rem;
-    line-height: 2.6rem;
-    text-align: center;
-    letter-spacing: 0.02em;
-    color: var(--dark-text);
-  }
-  
-  .request-test main {
+}
+
+.request-test main {
+    height: 100%;
     display: flex;
     flex: 1;
     flex-direction: column;
     align-items: center;
     background-color: var(--light-green);
     padding: 20px;
-  }
-  
-  .request-test main form {
+}
+
+.request-test main form {
     width: 100%;
     max-width: 600px;
     margin-top: 30px;
-  }
-  
-  .request-test main form .input-group {
+}
+
+.request-test main form .input-group {
     margin-bottom: 22px;
-  }
-  
-  .request-test main form .file-input-preview img {
+}
+
+.request-test main form .file-input-preview img {
     width: 100%;
     height: 180px;
     object-fit: fill;
-  }
-  
-  .request-test main form .btn-form {
+}
+
+.request-test main form .btn-form {
     margin-top: 30px;
-  }
+}
 </style>

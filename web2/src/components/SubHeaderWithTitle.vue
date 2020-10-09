@@ -1,12 +1,12 @@
 <template>
-    <section id="sub-header">
+    <section id="sub-header-with-tile">
         <h1>{{title}}</h1>
     </section>
 </template>
 
 <script>
 export default {
-    name:'SubHeader',
+    name:'SubHeaderWithTitle',
     props: {
         title: {
             type: String,
@@ -17,7 +17,7 @@ export default {
 </script>
 
 <style scoped>
-#sub-header {
+#sub-header-with-tile {
     min-height: 60px;
     background-color: #FFFFFF;
     display: flex;
@@ -26,7 +26,7 @@ export default {
     justify-content: center;
 }
 
-#sub-header h1 {
+#sub-header-with-tile h1 {
     font-family: Roboto;
     font-weight: 500;
     font-size: 2.2rem;

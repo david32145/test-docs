@@ -9,7 +9,7 @@
                     <li 
                         v-for="user in filteredUsers" 
                         :key="user.id"
-                        click="addMember(user.id)" 
+                        @click="addMember(user.id)" 
                     >
                         <p>{{user.name}}</p>
                     </li>
@@ -61,6 +61,7 @@ export default {
     },
     methods: {
         addMember(newMemberId) {
+            this.searched_member = ''
             this.members.push(this.users.find(user => user.id === newMemberId))
         },
         removeMember(index, removedMemberId) {

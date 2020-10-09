@@ -77,28 +77,28 @@ export default {
             vm.projects = [
                 {
                     id: 0,
-                    avatar_uri: '',
+                    avatar_uri: 'https://png.pngtree.com/png-vector/20190710/ourlarge/pngtree-user-vector-avatar-png-image_1541962.jpg',
                     membersNumber: 13,
                     name: 'Amazon',
                     owner_id: 0
                 },
                 {
                     id: 1,
-                    avatar_uri: '@/assets/avatar.svg',
+                    avatar_uri: 'https://png.pngtree.com/png-vector/20190710/ourlarge/pngtree-user-vector-avatar-png-image_1541962.jpg',
                     membersNumber: 13,
                     name: 'Uber',
                     owner_id: 1
                 },
                 {
                     id: 2,
-                    avatar_uri: '@/assets/avatar.svg',
+                    avatar_uri: 'https://png.pngtree.com/png-vector/20190710/ourlarge/pngtree-user-vector-avatar-png-image_1541962.jpg',
                     membersNumber: 13,
                     name: '99',
                     owner_id: 2
                 },
                 {
                     id: 3,
-                    avatar_uri: '',
+                    avatar_uri: 'https://png.pngtree.com/png-vector/20190710/ourlarge/pngtree-user-vector-avatar-png-image_1541962.jpg',
                     membersNumber: 13,
                     name: 'Uber',
                     owner_id: 3
