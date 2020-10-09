@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import Home from '../views/Home.vue'
 import Main from '@/views/Main.vue'
 import Dashboard from '@/views/Dashboard.vue'
 
@@ -12,6 +13,39 @@ import ProjectReleases from '@/views/ProjectReleases.vue'
 Vue.use(VueRouter)
 
 const routes = [
+  {
+    path: '*',
+    name: 'Home',
+    component: Home
+  },
+  {
+    path: '/signup',
+    name: 'SignUp',
+    component: function(){
+      return import ('../views/SignUp.vue')
+    }
+  },
+  {
+    path: '/requesttest',
+    name: 'RequestTest',
+    component: function(){
+      return import ('../views/RequestTest.vue')
+    }
+  },
+  {
+    path: '/testcase',
+    name: 'TestCase',
+    component: function(){
+      return import ('../views/TestCase.vue')
+    }
+  }, 
+  {
+    path: '/testsuite',
+    name: 'TestSuite',
+    component: function(){
+      return import ('../views/TestSuite.vue')
+    }
+  },
   {
     path: '/main',
     name: 'Main',
@@ -67,7 +101,7 @@ const routes = [
       },
     ]
   }
-]
+] 
 
 const router = new VueRouter({
   mode: 'history',

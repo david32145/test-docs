@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="project-form">
         <main>
             <form action="#" @submit.prevent="send">
                 <div :class="['input-group', 'input-group-ligth', {'input-group-error': hasNameError}]" id="name-form-group">
@@ -99,7 +99,7 @@ export default {
 </script>
 
 <style>
-main {
+.project-form main {
     display: grid;
     grid-template-columns: 1fr 600px 1fr;
     grid-template-areas: "a b c";
@@ -108,23 +108,23 @@ main {
     padding: 20px;
 }
 
-main form {
+.project-form main form {
     flex: 1;
     margin-top: 30px;
     grid-area: b;
 }
 
-main form .input-group {
+.project-form main form .input-group {
     margin-bottom: 22px;
 }
 
-main form .file-input-preview img {
+.project-form main form .file-input-preview img {
     width: 100%;
     height: 180px;
     object-fit: fill;
 }
 
-main form .btn-form {
+.project-form main form .btn-form {
     margin-top: 30px;
 }
 </style>

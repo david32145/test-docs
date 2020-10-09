@@ -22,6 +22,11 @@ html {
   line-height: 62.5%;
 }
 
+body {
+  display: flex;
+  flex-direction: row;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -205,4 +210,5 @@ h1{
 .bg-blue {
   background-color: var(--bg-blue);
 }
+
 </style>

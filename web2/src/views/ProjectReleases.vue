@@ -3,7 +3,7 @@
         <div class="release-list-container">
             <div class="release-header">
                 <h2>{{releases_tests.length}} releases</h2>
-                <router-link to="project"> <!-- requestTest -->
+                <router-link to="/requesttest"> <!-- requestTest -->
                     <button class="btn-form add-new-release">+</button>
                 </router-link>
             </div>

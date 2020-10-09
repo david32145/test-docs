@@ -1,21 +1,56 @@
 <template>
     <div class="alert-dialog">
-        <div class="dialog-container">
-            <h1 class="dialog-header">Título</h1>
-            <p class="dialog-body">
-                Context of dialog
-            </p>
-            <div class="actions">
-                <button class="btn-cancel">Cancelar</button>
-                <button class="btn-ok">Ok</button>
-            </div>
+        <div v-show="!alertDialog" class="dialog-container">
+          <h1 class="dialog-header">Título</h1>
+          <p class="dialog-body">Context of dialog</p>
+          <div class="actions">
+            <button class="btn-cancel">Cancelar</button>
+            <button class="btn-ok">Ok</button>
+          </div>
         </div>
     </div>
 </template>
 
 <script>
 export default {
-    name: 'Dialog'
+    name: "Dialog",
+    data: {
+        dialog : {
+        
+        }
+    },
+    methods:{
+        alertDialog: function(){
+        const dialog = document.querySelector(".alert-dialog")
+        if(!dialog){
+            return
+        }
+        const dialogContainer = dialog.querySelector(".dialog-container")
+        const dialogHeader = dialogContainer.querySelector(".dialog-header")
+        const dialogBody = dialogContainer.querySelector(".dialog-body")
+        const btnCancel = dialogContainer.querySelector(".btn-cancel")
+        const btnOk = dialogContainer.querySelector(".btn-ok")
+
+        btnCancel.addEventListener("click", () => {
+            dialog.style.display = "none"
+        })
+
+        btnOk.addEventListener("click", () => {
+            dialog.style.display = "none"
+        })
+
+        window.Dialog = {
+            show(title, body = "") {
+            dialogHeader.innerText = title
+            dialogBody.innerText = body
+            dialog.style.display = "block"
+            },
+            close() {
+            dialog.style.display = "none"
+            }
+        }
+        }
+    }
 }
 </script>
 
@@ -91,4 +126,5 @@ export default {
 .alert-dialog .dialog-container .actions button + button {
   color: #313638;
 }
+
 </style>

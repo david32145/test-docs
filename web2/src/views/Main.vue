@@ -1,5 +1,5 @@
 <template>
-    <div id='main-page'>
+    <div class='main-page'>
         <Header/>
         <router-view/>
     </div>
@@ -17,7 +17,7 @@ export default {
 </script>
 
 <style>
-#main-page {
+.main-page {
     height: 100%;
     background-color: var(--light-green);
 }
