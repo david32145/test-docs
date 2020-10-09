@@ -51,6 +51,15 @@ export default {
         descricao: "",
         testerid: "",    
         baseURI: "",
+        hasVersionError: false,
+        hasTitleError: false,
+        hasDescriptionError: false,
+        hasTesterIdError: false,
+        textVersionError: '',
+        textTitleError: '',
+        textDescriptionError: '',
+        textTesterIdError: '',
+
         };
     },
     methods: {
@@ -62,74 +71,37 @@ export default {
             testerid: this.testerid,
         };
         
-        const versionFormGroup = document.querySelector("#version-form-group")
-        const versionError = versionFormGroup.querySelector("span")
-
-        const titleFormGroup = document.querySelector("#title-form-group")
-        const titleError = titleFormGroup.querySelector("span")
-
-        const descriptionFormGroup = document.querySelector("#description-form-group")
-        const descriptionError = descriptionFormGroup.querySelector("span")
-
-        const testeridFormGroup = document.querySelector("#testeruserid-form-group")
-        const testeridError = testeridFormGroup.querySelector("span")
-
-
         this.$http.post(this.baseURI, obj).then((result) => {
-            let hasVersionError = false
-            let hasTitleError = false
-            let hasDescriptionError = false
-            let hasTesterIdError = false
-
-            if(obj.versao === "") {
-                hasVersionError = true
-                versionError.innerText = "A versão do projeto é obrigatória"
-            }
-            if(!obj.titulo || obj.titulo.length < 5) {
-                hasTitleError = true
-                if(!obj.titulo) {
-                titleError.innerText = "O título é obrigatório"
-                } else {
-                titleError.innerText = "O título deve ter pelo menos 5 caracteres"
-                }
-            }
-            if(!obj.descricao || obj.descricao.length < 10) {
-            hasDescriptionError = true
-            if(!obj.descricao) {
-                descriptionError.innerText = "A descrição é obrigatória"
-            } else {
-                descriptionError.innerText = "A descrição deve ter pelo menos 10 caracteres"
-            }
-            }
-            if(obj.testerid === "") {
-                hasTesterIdError = true
-                testeridError.innerText = "O ID do tester é obrigatório"
-            }
-            if(hasVersionError) {
-            versionFormGroup.classList.add("input-group-error")
-            } else {
-            versionFormGroup.classList.remove("input-group-error")
-            }
-            if(hasTitleError) {
-                titleFormGroup.classList.add("input-group-error")
-            } else {
-                titleFormGroup.classList.remove("input-group-error")
-            }
-            if(hasDescriptionError) {
-            descriptionFormGroup.classList.add("input-group-error")
-            } else {
-            descriptionFormGroup.classList.remove("input-group-error")
-            }
-            if(hasTesterIdError) {
-                testeridFormGroup.classList.add("input-group-error")
-            } else {
-                testeridFormGroup.classList.remove("input-group-error")
-            }
-            if (!(hasVersionError || hasTitleError || hasDescriptionError || hasTesterIdError)) {
+            if (this.fieldsValidation()) {
             this.$router.push({ name: 'RequestTests'});
             } 
         });
         },
+
+        fieldsValidation(){
+            this.hasVersionError = false
+            this.hasTitleError = false
+            this.hasDescriptionError = false
+            this.hasTesterIdError = false
+
+            if(this.versao === "") {
+                this.hasVersionError = true
+                this.textVersionError = "A versão do projeto é obrigatória"
+            }
+            if(!this.titulo || this.titulo.length < 5) {
+                this.hasTitleError = true
+                this.textTitleError = (!this.titulo) ? "O título é obrigatório" : "O título deve ter pelo menos 5 caracteres"
+            }
+            if(!this.descricao || this.descricao.length < 10) {
+                this.hasDescriptionError = true
+                this.textDescriptionError = (!this.descricao) ? "A descrição é obrigatória" : "A descrição deve ter pelo menos 10 caracteres"
+            }
+            if(this.testerid === "") {
+                this.hasTesterIdError = true
+                this.textTesterIdError = "O ID do tester é obrigatório"
+            }
+            return !(hasVersionError || hasTitleError || hasDescriptionError || hasTesterIdError)
+        }
     },
 }
 </script>

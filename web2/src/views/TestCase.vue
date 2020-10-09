@@ -45,6 +45,12 @@ export default {
         descricao: "",
         taskid: "",
         baseURI: "",
+        hasTitleError: false,
+        hasDescriptionError: false,
+        hasTaskError: false,
+        textTitleError: '',
+        textDescriptionError: '',
+        textTaskError: '',
       };
     },
     methods: {
@@ -54,53 +60,31 @@ export default {
           descricao: this.descricao,
           taskid: this.taskid,
         };
-
-        const titleFormGroup = document.querySelector("#title-form-group")
-        const titleError = titleFormGroup.querySelector("span")
-
-        const descriptionFormGroup = document.querySelector("#description-form-group")
-        const descriptionError = descriptionFormGroup.querySelector("span")
-
-        const taskFormGroup = document.querySelector("#task-form-group")
-        const taskError = taskFormGroup.querySelector("span")
-
         this.$http.post(this.baseURI, obj).then((result) => {
-          let hasTitleError = false
-          let hasDescriptionError = false
-          let hasTaskError = false
-
-          if(obj.titulo === "") {
-            hasTitleError = true
-            titleError.innerText = "O título é obrigatório"
-          }
-          if(description.value === "") {
-            hasDescriptionError = true
-            descriptionError.innerText = "A descrição é obrigatória"
-          }
-          if(task.value === "") {
-              hasTaskError = true
-              taskError.innerText = "A task é obrigatória"
-          }
-          if(hasTitleError) {
-            titleFormGroup.classList.add("input-group-error")
-          } else {
-            titleFormGroup.classList.remove("input-group-error")
-          }
-          if(hasDescriptionError) {
-            descriptionFormGroup.classList.add("input-group-error")
-          } else {
-            descriptionFormGroup.classList.remove("input-group-error")
-          }
-          if(hasTaskError) {
-              taskFormGroup.classList.add("input-group-error")
-            } else {
-              taskFormGroup.classList.remove("input-group-error")
-          }
-          if (hasTitleError && hasDescriptionError && hasTaskError ) {
-            this.$router.push({ name: 'TestCases'});
+          if(this.fieldsValidation()) {
+              this.$router.push({ name: 'TestCases'});
           } 
         });
       },
+        fieldsValidation(){
+          this.hasTitleError = false
+          this.DescriptionError = false
+          this.hasTaskError = false
+
+           if(this.titulo === "") {
+            this.hasTitleError = true
+            this.textTitleError = "O título é obrigatório"
+          }
+          if(this.descricao === "") {
+            this.hasDescriptionError = true
+            this.textDescriptionError = "A descrição é obrigatória"
+          }
+          if(this.taskid === "") {
+            this.hasTaskError = true
+            this.textTaskError = "A task é obrigatória"
+          }
+          return !(hasTitleError || hasDescriptionError || hasTaskError )
+        }
     },
 };
 </script>

@@ -68,7 +68,9 @@
                     <span>Link inválida</span>
                 </div>
                 <div class="helps">
-                    <a href="" class="link-help"><router-link to="*">Já tenho uma conta</router-link></a>
+                    <span class="link-help">
+                        <router-link to="*">Já tenho uma conta</router-link>
+                    </span>
                     <img src="@/assets/avatar.png" alt="Avatar">
                 </div>
                 <button @click="postRegister" class="btn-form">Cadastrar</button>
@@ -91,13 +93,21 @@ export default {
     },
     data: function() {
         return {
-        email: "",
-        password: "",
-        nome: "",
-        cargo: "",
-        descricao: "",
-        github: "",
-        baseURI: "",
+        email: '',
+        password: '',
+        nome: '',
+        cargo: '',
+        descricao: '',
+        github: '',
+        baseURI: '',
+        hasEmailError: false,
+        hasPasswordError: false,
+        hasNomeError: false,
+        hasGitHubError: false,
+        textEmailError: '',
+        textPasswordError: '',
+        textNomeError: '',
+        textGitHubError: '',
         };
     },
     methods: {
@@ -110,83 +120,55 @@ export default {
             descricao: this.descricao,
             github: this.github,
         };
-
-            const emailFormGroup = document.querySelector("#email-form-group")
-            const emailError = emailFormGroup.querySelector("span")
-
-            const passworFormGroup = document.querySelector("#password-form-group")
-            const passwordError = passworFormGroup.querySelector("span")
-
-            const nomeFormGroup = document.querySelector("#nome-form-group")
-            const nomeError = nomeFormGroup.querySelector("span")
-
-            const gitFormGroup = document.querySelector("#github-form-group")
-            const githubError = gitFormGroup.querySelector("span")
-
         this.$http.post(this.baseURI, obj).then((result) => {
-            let hasEmailError = false;
-            let hasPasswordError = false;
-            let hasNomeError = false;
-            let hasGitHubError = false;
-            
-            if (!EMAIL_REGEX.test(obj.email)) {
-                hasEmailError = true
-                emailError.innerText = "Email inválido"
-            }
-            if (obj.email === "") {
-                hasEmailError = true
-                emailError.innerText = "Campo obrigatório"
-            }
-            if (obj.password.length < 7) {
-                hasPasswordError = true
-                passwordError.innerText = "A senha deve ter mais de 6 caracteres"
-            }
-            if (obj.password === "") {
-                hasPasswordError = true
-                passwordError.innerText = "Campo obrigatório"
-            }
-            if  (!NOME_REGEX.test(obj.nome)){
-                hasNomeError = true
-                nomeError.innerText = "Nome inválido"
-            }
-            if (obj.nome === "") {
-                hasNomeError = true
-                nomeError.innerText = "Campo obrigatório"
-            }
-            if(obj.github === ""){
-                hasGitHubError = false
-            }else if (!GITHUB_URI_REGEX.test(obj.github)){
-                hasGitHubError = true
-                githubError.innerText = "Link inválido"
-            }
-
-            if (hasEmailError) {
-                emailFormGroup.classList.add("input-group-error")
-            } else {
-                emailFormGroup.classList.remove("input-group-error")
-            }
-            if (hasPasswordError) {
-                passworFormGroup.classList.add("input-group-error")
-            } else {
-                passworFormGroup.classList.remove("input-group-error")
-            }
-            if (hasNomeError) {
-                nomeFormGroup.classList.add("input-group-error")
-            } else {
-                nomeFormGroup.classList.remove("input-group-error")
-            }
-            if (hasGitHubError) {
-                gitFormGroup.classList.add("input-group-error")
-            } else {
-                gitFormGroup.classList.remove("input-group-error")
-            }
-            
-            if (!hasEmailError && !hasPasswordError && !hasNomeError && !hasGitHubError) {
+            if (this.fieldValidation()) {
             localStorage.setItem("user", JSON.stringify(result.data));
             this.$router.push('*');
+            window.location.href = "*";
+            } else {
+            alert("Verifique os campos.");
             }
         });
         },
+        fieldValidation(){
+            this.hasEmailError = false
+            this.hasPasswordError = false
+            this.hasNomeError = false
+            this.hasGitHubError = false
+
+            if (!EMAIL_REGEX.test(this.email)) {
+                this.hasEmailError = true
+                this.textEmailError = "Email inválido"
+            }
+            if (this.email === "") {
+                this.hasEmailError = true
+                this.textEmailError = "Campo obrigatório"
+            }
+            if (this.password.length < 7) {
+                this.hasPasswordError = true
+                this.textPasswordError = "A senha deve ter mais de 6 caracteres"
+            }
+            if (this.password === "") {
+                this.hasPasswordError = true
+                this.textPasswordError = "Campo obrigatório"
+            }
+            if  (!NOME_REGEX.test(this.nome)){
+                this.hasNomeError = true
+                this.textNomeError = "Nome inválido"
+            }
+            if (this.nome === "") {
+                this.hasNomeError = true
+                this.textNomeError = "Campo obrigatório"
+            }
+            if(this.github === ""){
+                this.hasGitHubError = false
+            }else if (!GITHUB_URI_REGEX.test(this.github)){
+                this.hasGitHubError = true
+                this.textGitHubError = "Link inválido"
+            }
+
+            return (!hasEmailError && !hasPasswordError && !hasNomeError && !hasGitHubError)
+        }
     },
 };
 </script>

@@ -92,9 +92,9 @@
           </div>
 
           <button @click="postLogin" class="btn-form">Entrar</button>
-          <a href="" class="link-help"
-            ><router-link to="/signup">Criar nova conta</router-link></a
-          >
+          <span class="link-help">
+            <router-link to="/signup">Criar nova conta</router-link>
+          </span>
         </form>
       </div>
       <Dialog></Dialog>
@@ -114,9 +114,14 @@ export default {
   },
   data() {
     return {
-      email: "",
-      password: "",
-      baseURI: "",
+      email: '',
+      password: '',
+      baseURI: '',
+      hasEmailError: false,
+      hasPasswordError: false,
+      textEmailError: '',
+      textPasswordError: '',
+
     };
   },
   created: function() {
@@ -130,53 +135,40 @@ export default {
         email: this.email,
         password: this.password,
       };
-
-
-    const emailFormGroup = document.querySelector("#email-form-group")
-    const emailError = emailFormGroup.querySelector("span")
-
-    const passworFormGroup = document.querySelector("#password-form-group")
-    const passwordError = passworFormGroup.querySelector("span")
-
-    let hasEmailError = false
-    let hasPasswordError = false
-      
       this.$http.post(this.baseURI, obj).then((result) => {
-        if(!EMAIL_REGEX.test(obj.email)){
-          hasEmailError =  true;
-          emailError.innerText = "Email inválido";
-        }
-        if(obj.email === "") {
-          hasEmailError =  true
-          emailError.innerText = "Campo obrigatório"
-        }
-        if(obj.password.length < 7) {
-          hasPasswordError =  true
-          passwordError.innerText = "A senha deve ter mais de 6 caracteres"
-        }
-        if(obj.password === "") {
-          hasPasswordError =  true
-          passwordError.innerText = "Campo obrigatório"
-        }
-
-        if(hasEmailError) {
-          emailFormGroup.classList.add("input-group-error")
-        }else {
-          emailFormGroup.classList.remove("input-group-error")
-        }
-        if(hasPasswordError) {
-          passworFormGroup.classList.add("input-group-error")
-        }else{
-          passworFormGroup.classList.remove("input-group-error")
-        }
-        if(!hasEmailError && !hasPasswordError) {
+        if (this.fieldsValidation()) {
           localStorage.setItem("user", JSON.stringify(result.data));
+          location.reload();
           this.$router.push('../main/dashboard.vue');
-        } 
+        } else {
+          alert("Check the login and password.");
+        }
       });
     },
-  },
-};
+    fieldsValidation(){
+      this.hasEmailError = false
+      this.hasPasswordError = false  
+
+      if(!EMAIL_REGEX.test(this.email)){
+          this.hasEmailError =  true;
+          this.textEmailError = "Email inválido";
+        }
+        if(this.email === "") {
+          this.hasEmailError =  true
+          this.textEmailError = "Campo obrigatório"
+        }
+        if(this.password.length < 7) {
+          this.hasPasswordError =  true
+          this.textPasswordError = "A senha deve ter mais de 6 caracteres"
+        }
+        if(this.password === "") {
+          this.hasPasswordError =  true
+          this.textPasswordError = "Campo obrigatório"
+        }
+        return (!hasEmailError && !hasPasswordError)
+    },
+  }
+}
 </script>
 
 <style>
@@ -234,7 +226,6 @@ export default {
   font-weight: normal;
   font-size: 16px;
   color: #bcb8b1;
-  text-decoration: none;
 }
 
 .login-page main {
@@ -242,7 +233,7 @@ export default {
   flex-direction: column;
   align-items: center;
   flex: 1;
-  /* margin-top: 50px; */
+  margin-top: 50px;
 }
 
 .login-page main img {

@@ -37,6 +37,10 @@ export default {
         titulo: "",
         descricao: "",
         baseURI: "",
+        hasTitleError: false,
+        hasDescriptionError: false,
+        textTitleError: '',
+        textDescriptionError: '',
       };
     },
 
@@ -46,25 +50,25 @@ export default {
           titulo: this.titulo,
           descricao: this.descricao,
         };
-
-        const titleFormGroup = document.querySelector("#title-form-group")
-        const titleError = titleFormGroup.querySelector("span")
-        const descriptionFormGroup = document.querySelector("#description-form-group")
-        const descriptionError = descriptionFormGroup.querySelector("span")
-
         this.$http.post(this.baseURI, obj).then((result) => {
-          let hasTitleError = false
-          let hasDescriptionError = false
-
-          if(obj.titulo === "") {
-              hasTitleError = true
-              titleError.innerText = "O título é obrigatório"
-          }     
-          if (hasTitleError) {
+          if (this.fieldsValidation()) {
             this.$router.push({ name: 'TestSuites'});
           } 
-        });
+        }); 
       },
+      fieldsValidation(){
+          this.hasTitleError = false
+          this.hasDescriptionError = false
+          if(this.titulo === "") {
+              this.hasTitleError = true
+              this.textTitleError = "O título é obrigatório"
+          }
+          if(this.descricao === "") {
+              this.hasDescriptionError = true
+              this.textDescriptionError = "A descrição é obrigatória"
+          }
+          return !(hasTitleError || hasDescriptionError)          
+      }
     },
 };
 </script>
