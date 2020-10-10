@@ -51,7 +51,7 @@
     <div class="sign-up-container">
       <form action="#" autocomplete="off">
         <h1>Sign-Up</h1>
-        <div class="input-group" id="email-form-group">
+        <div :class="['input-group', { 'input-group-error': hasEmailError }]" id="email-form-group">
           <label for="email">Email</label>
           <input
             type="text"
@@ -59,9 +59,9 @@
             placeholder="Digite seu email"
             v-model="email"
           />
-          <span>Email inválido</span>
+          <span>{{textEmailError}}</span>
         </div>
-        <div class="input-group" id="password-form-group">
+        <div :class="['input-group', { 'input-group-error': hasPasswordError }]" id="password-form-group">
           <label for="password">Senha</label>
           <input
             type="password"
@@ -69,9 +69,9 @@
             placeholder="Digite sua senha"
             v-model="password"
           />
-          <span>Senha inválida</span>
+          <span>{{textPasswordError}}</span>
         </div>
-        <div class="input-group" id="nome-form-group">
+        <div :class="['input-group', { 'input-group-error': hasNomeError }]" id="nome-form-group">
           <label for="nome">Nome</label>
           <input
             type="text"
@@ -79,9 +79,9 @@
             placeholder="Digite seu nome"
             v-model="nome"
           />
-          <span>Nome errado</span>
+          <span>{{textNomeError}}</span>
         </div>
-        <div class="input-group" id="cargo-form-group">
+        <div :class="['input-group']" id="cargo-form-group">
           <label for="cargo">Cargo</label>
           <input
             type="text"
@@ -101,7 +101,7 @@
           />
           <span>Descricao inválido</span>
         </div>
-        <div class="input-group" id="github-form-group">
+        <div :class="['input-group', { 'input-group-error': hasGitHubError }]" id="github-form-group">
           <label for="github">GitHub</label>
           <input
             type="text"
@@ -109,7 +109,7 @@
             placeholder="https://github.com/user"
             v-model="github"
           />
-          <span>Link inválida</span>
+          <span>{{textGitHubError}}</span>
         </div>
         <div class="helps">
           <span class="link-help">
@@ -127,8 +127,9 @@
 <script>
 const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const NOME_REGEX = /^[a-zA-ZéúíóáÉÚÍÓÁèùìòàçÇÈÙÌÒÀõãñÕÃÑêûîôâÊÛÎÔÂëÿüïöäËYÜÏÖÄ\-\ \s]+$/;
-const GITHUB_URI_REGEX = /^https:\/\/github.com\/(.)*\/(.)*/;
+const GITHUB_URI_REGEX = /^https:\/\/github.com\/(.)*(\/)?/;
 import Dialog from "@/components/Dialog.vue";
+import httpClient from "../providers/http-client"
 
 export default {
   name: "SignUp",
@@ -155,24 +156,27 @@ export default {
     };
   },
   methods: {
-    postRegister: function () {
-      let obj = {
+    postRegister: function (event) {
+      event.preventDefault()
+      if(!this.fieldValidation()) {
+        return;
+      }
+      let requestBody = {
         email: this.email,
-        password: this.password,
-        nome: this.nome,
-        cargo: this.cargo,
-        descricao: this.descricao,
+        passwordHash: this.password,
+        name: this.nome,
+        office: this.cargo,
+        description: this.descricao,
         github: this.github,
+        avatarUri: "http://api.adorable.io/avatars/128/abott@adorable.png"
       };
-      this.$http.post(this.baseURI, obj).then((result) => {
-        if (this.fieldValidation()) {
-          localStorage.setItem("user", JSON.stringify(result.data));
-          this.$router.push("*");
-          window.location.href = "*";
-        } else {
-          alert("Verifique os campos.");
-        }
-      });
+      httpClient.post("/users", requestBody)
+        .then(() => {
+          this.$router.push({name: 'Login'})
+        })
+        .catch(err => {
+          alert(err.response.data.message || "Ocorreu um error inesperado")
+        })
     },
     fieldValidation() {
       this.hasEmailError = false;
@@ -183,36 +187,59 @@ export default {
       if (!EMAIL_REGEX.test(this.email)) {
         this.hasEmailError = true;
         this.textEmailError = "Email inválido";
+      } else {
+        this.hasEmailError = false
       }
+
       if (this.email === "") {
         this.hasEmailError = true;
         this.textEmailError = "Campo obrigatório";
+      } else {
+        this.hasEmailError = false
       }
+
       if (this.password.length < 7) {
         this.hasPasswordError = true;
         this.textPasswordError = "A senha deve ter mais de 6 caracteres";
+      }else {
+        this.hasPasswordError = false
       }
+
       if (this.password === "") {
         this.hasPasswordError = true;
         this.textPasswordError = "Campo obrigatório";
+      } else {
+        this.hasPasswordError = false
       }
+
       if (!NOME_REGEX.test(this.nome)) {
         this.hasNomeError = true;
         this.textNomeError = "Nome inválido";
+      } else {
+        this.hasNomeError = false
       }
+
       if (this.nome === "") {
         this.hasNomeError = true;
         this.textNomeError = "Campo obrigatório";
+      } else {
+        this.hasNomeError = false
       }
+
+      console.log(!GITHUB_URI_REGEX.test(this.github))
       if (this.github === "") {
         this.hasGitHubError = false;
       } else if (!GITHUB_URI_REGEX.test(this.github)) {
         this.hasGitHubError = true;
         this.textGitHubError = "Link inválido";
+      } else {
+        this.hasGitHubError = false
       }
 
+      console.log(this.hasGitHubError)
+
       return (
-        !hasEmailError && !hasPasswordError && !hasNomeError && !hasGitHubError
+        !this.hasEmailError && !this.hasPasswordError && !this.hasNomeError && !this.hasGitHubError
       );
     },
   },

@@ -20,13 +20,19 @@
         </button>
       </div>
     </main>
-    <project-form-component v-else buttonTitle="Editar Projeto" :onFormSubmit="onFormEditSubmit" />
+    <project-form-component
+      :project="project"
+      v-else
+      buttonTitle="Editar Projeto"
+      :onFormSubmit="onFormEditSubmit"
+    />
   </div>
 </template>
 
 <script>
 import ProjectFormComponent from "@/components/project-form.component.vue";
 import Dialog from "@/components/Dialog.vue";
+import httpClient from "../providers/http-client";
 
 const GITHUB_URI_REGEX = /^https:\/\/github.com\/(.)*\/(.)*/;
 
@@ -40,19 +46,29 @@ export default {
   data: function () {
     return {
       userId: 0,
-      editFormOpen: false
+      editFormOpen: false,
     };
   },
   computed: {
     canEdit() {
-      return true
-    }
+      const userId = JSON.parse(localStorage.getItem('@testdocs/user')).id
+      return parseInt(userId, 10) === parseInt(this.project.ownerId)
+    },
   },
   methods: {
     onFormEditSubmit(project) {
-      this.editFormOpen = false
-    }
-  }
+      const projectId = this.$route.params.project_id
+      httpClient
+        .put(`/projects/${projectId}`, project)
+        .then((response) => {
+          this.project = response.data
+        })
+        .catch((err) => {
+          alert(err.response.data.message || "Ocorreu um error inesperado")
+        });
+      this.editFormOpen = false;
+    },
+  },
 };
 </script>
 

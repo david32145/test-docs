@@ -23,21 +23,15 @@
         </div>
 
         <ul class="list-project">
-          <li v-for="project in filteredProjects" :key="project.id">
-            <img
-              :src="project.avatar_uri"
-              alt="Avatar"
-              class="avatar-project"
-            />
+          <li v-for="project in projects" :key="project.id">
+            <img :src="project.imageUri" alt="Avatar" class="avatar-project" />
 
             <p>{{ project.name }}</p>
 
             <NotificationIcon color="black" />
 
-            <p class="members-number">
-              {{ project.membersNumber }} integrantes
-            </p>
-            <p class="project-owner">@{{ getOwnerName(project.owner_id) }}</p>
+            <p class="members-number">{{ 0 }} integrantes</p>
+            <p class="project-owner">{{ project.user.name }}</p>
 
             <router-link :to="`project/${project.id}`">
               <button>
@@ -57,6 +51,7 @@
 import NotificationIcon from "@/components/NotificationIcon.vue";
 import Notifications from "@/components/Notifications.vue";
 import HeaderComponent from "@/components/header.component.vue";
+import httpClient from "../providers/http-client";
 
 export default {
   name: "dashboard-view",
@@ -72,58 +67,15 @@ export default {
       projects: [],
     };
   },
-  computed: {
-    filteredProjects: function () {
-      if (this.project_search === "") return this.projects;
-      return this.projects.filter((project) => {
-        return project.name
-          .toLowerCase()
-          .includes(this.project_search.toLowerCase());
+  created() {
+    httpClient
+      .get("/projects/my_projects")
+      .then((response) => {
+        this.projects = response.data;
+      })
+      .catch((err) => {
+        alert(err.response.data.message || "Ocorreu um error inesperado");
       });
-    },
-  },
-  methods: {
-    getOwnerName(userId) {
-      return "rafael.vieira";
-    },
-  },
-  beforeRouteEnter(to, from, next) {
-    next((vm) => {
-      vm.projects = [
-        {
-          id: 0,
-          avatar_uri:
-            "https://png.pngtree.com/png-vector/20190710/ourlarge/pngtree-user-vector-avatar-png-image_1541962.jpg",
-          membersNumber: 13,
-          name: "Amazon",
-          owner_id: 0,
-        },
-        {
-          id: 1,
-          avatar_uri:
-            "https://png.pngtree.com/png-vector/20190710/ourlarge/pngtree-user-vector-avatar-png-image_1541962.jpg",
-          membersNumber: 13,
-          name: "Uber",
-          owner_id: 1,
-        },
-        {
-          id: 2,
-          avatar_uri:
-            "https://png.pngtree.com/png-vector/20190710/ourlarge/pngtree-user-vector-avatar-png-image_1541962.jpg",
-          membersNumber: 13,
-          name: "99",
-          owner_id: 2,
-        },
-        {
-          id: 3,
-          avatar_uri:
-            "https://png.pngtree.com/png-vector/20190710/ourlarge/pngtree-user-vector-avatar-png-image_1541962.jpg",
-          membersNumber: 13,
-          name: "Uber",
-          owner_id: 3,
-        },
-      ];
-    });
   },
 };
 </script>
@@ -308,7 +260,7 @@ export default {
   height: 21px;
 
   font-weight: 300;
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   line-height: 2.1rem;
   text-align: justify;
   letter-spacing: 0.02em;

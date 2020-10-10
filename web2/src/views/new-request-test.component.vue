@@ -4,17 +4,38 @@
     <subheader-with-title-component title="Criar nova solicitação de teste" />
     <main>
       <form action="#">
-        <div class="input-group input-group-ligth" id="version-form-group">
+        <div
+          :class="[
+            'input-group',
+            'input-group-ligth',
+            { 'input-group-error': hasVersionError },
+          ]"
+          id="version-form-group"
+        >
           <label for="version">Versão</label>
           <input type="text" id="version" placeholder="" v-model="versao" />
-          <span>Versão inválido</span>
+          <span>{{ textVersionError }}</span>
         </div>
-        <div class="input-group input-group-ligth" id="title-form-group">
+        <div
+          :class="[
+            'input-group',
+            'input-group-ligth',
+            { 'input-group-error': hasTitleError },
+          ]"
+          id="title-form-group"
+        >
           <label for="title">Título</label>
           <input type="text" id="title" placeholder="" v-model="titulo" />
-          <span>Título inválido</span>
+          <span>{{ textTitleError }}</span>
         </div>
-        <div class="input-group input-group-ligth" id="description-form-group">
+        <div
+          :class="[
+            'input-group',
+            'input-group-ligth',
+            { 'input-group-error': hasDescriptionError },
+          ]"
+          id="description-form-group"
+        >
           <label for="description">Descrição</label>
           <input
             type="text"
@@ -22,9 +43,16 @@
             placeholder=""
             v-model="descricao"
           />
-          <span>Descrição inválida</span>
+          <span>{{ textDescriptionError }}</span>
         </div>
-        <div class="input-group input-group-ligth" id="testeruserid-form-group">
+        <div
+          :class="[
+            'input-group',
+            'input-group-ligth',
+            { 'input-group-error': hasTesterIdError },
+          ]"
+          id="testeruserid-form-group"
+        >
           <label for="testeruserid">Tester ID:</label>
           <input
             type="text"
@@ -32,7 +60,7 @@
             placeholder=""
             v-model="testerid"
           />
-          <span>Tester ID inválido</span>
+          <span>{{ textTesterIdError }}</span>
         </div>
         <button @click="insertRequestTest" class="btn-form">
           Criar solicitação
@@ -47,6 +75,7 @@
 import HeaderComponent from "@/components/header.component.vue";
 import SubheaderWithTitleComponent from "@/components/subheader-with-title.component.vue";
 import Dialog from "@/components/Dialog.vue";
+import httpClient from "../providers/http-client";
 
 export default {
   name: "new-test-request-view",
@@ -73,19 +102,27 @@ export default {
     };
   },
   methods: {
-    insertRequestTest: function () {
-      let obj = {
-        versao: this.versao,
-        titulo: this.titulo,
-        descricao: this.descricao,
-        testerid: this.testerid,
+    insertRequestTest(event) {
+      event.preventDefault();
+      if (!this.fieldsValidation()) return;
+      const userId = JSON.parse(localStorage.getItem("@testdocs/user")).id;
+      const projectId = this.$route.params.project_id;
+      let requestBody = {
+        version: this.versao,
+        title: this.titulo,
+        requestingUserId: userId,
+        projectId: projectId,
+        testerUserId: this.testerid,
       };
 
-      this.$http.post(this.baseURI, obj).then((result) => {
-        if (this.fieldsValidation()) {
-          this.$router.push({ name: "RequestTests" });
-        }
-      });
+      httpClient
+        .post("/test_requests", requestBody)
+        .then(() => {
+          this.$router.push({ path: `/project/${projectId}` });
+        })
+        .catch((err) => {
+          alert(err.response.data.message || "Ocorreu um error inesperado");
+        });
     },
 
     fieldsValidation() {
@@ -115,10 +152,10 @@ export default {
         this.textTesterIdError = "O ID do tester é obrigatório";
       }
       return !(
-        hasVersionError ||
-        hasTitleError ||
-        hasDescriptionError ||
-        hasTesterIdError
+        this.hasVersionError ||
+        this.hasTitleError ||
+        this.hasDescriptionError ||
+        this.hasTesterIdError
       );
     },
   },

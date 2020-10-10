@@ -67,7 +67,10 @@
       <img src="@/assets/logo.svg" alt="Logo" />
       <form action="#" autocomplete="off">
         <h1>Login</h1>
-        <div class="input-group" id="email-form-group">
+        <div
+          :class="['input-group', { 'input-group-error': hasEmailError }]"
+          id="email-form-group"
+        >
           <label for="email">Email</label>
           <input
             type="text"
@@ -77,7 +80,10 @@
           />
           <span>Email inválido</span>
         </div>
-        <div class="input-group" id="password-form-group">
+        <div
+          :class="['input-group', { 'input-group-error': hasPasswordError }]"
+          id="password-form-group"
+        >
           <label for="password">Senha</label>
           <input
             type="password"
@@ -100,7 +106,7 @@
 
 <script>
 const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
+import httpClient from "../providers/http-client";
 import Dialog from "@/components/Dialog.vue";
 
 export default {
@@ -125,20 +131,26 @@ export default {
     }
   },
   methods: {
-    postLogin: function () {
-      let obj = {
-        email: this.email,
-        password: this.password,
-      };
-      this.$http.post(this.baseURI, obj).then((result) => {
-        if (this.fieldsValidation()) {
-          localStorage.setItem("user", JSON.stringify(result.data));
-          location.reload();
-          this.$router.push("../main/dashboard.vue");
-        } else {
-          alert("Check the login and password.");
-        }
-      });
+    postLogin(event) {
+      event.preventDefault();
+      if (this.fieldsValidation()) {
+        const requestBody = {
+          email: this.email,
+          password: this.password,
+        };
+        httpClient
+          .post("/auth", requestBody)
+          .then((response) => {
+            const userId = response.data
+            localStorage.setItem('@testdocs/user', JSON.stringify({
+              id: userId
+            }))
+            this.$router.push({name: 'Dashboard'})
+          })
+          .catch((err) => {
+            alert(err.response.data.message || "Ocorreu um error inesperado");
+          });
+      }
     },
     fieldsValidation() {
       this.hasEmailError = false;
@@ -152,15 +164,15 @@ export default {
         this.hasEmailError = true;
         this.textEmailError = "Campo obrigatório";
       }
-      if (this.password.length < 7) {
+      if (this.password.length < 5) {
         this.hasPasswordError = true;
-        this.textPasswordError = "A senha deve ter mais de 6 caracteres";
+        this.textPasswordError = "A senha deve ter mais de 4 caracteres";
       }
       if (this.password === "") {
         this.hasPasswordError = true;
         this.textPasswordError = "Campo obrigatório";
       }
-      return !hasEmailError && !hasPasswordError;
+      return !this.hasEmailError && !this.hasPasswordError;
     },
   },
 };
@@ -300,7 +312,7 @@ export default {
   font-size: 1.6rem;
   letter-spacing: 0.02em;
   text-decoration: none;
-  color: #BCB8B1;
+  color: #bcb8b1;
 }
 
 .login-view .login-container form .link-help:hover {

@@ -55,7 +55,7 @@ const routes = [
   },
   {
     path: '/project/:project_id/testrequest/:test_request_id/testsuite/:test_suite_id/testcase/new',
-    name: 'NewTestSuite',
+    name: 'NewTestCase',
     component: function() {
       return import('../views/testcase.view.vue')
     }
@@ -70,6 +70,25 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
+})
+
+function isAuthenticated() {
+  return localStorage.getItem('@testdocs/user') !== null
+}
+
+router.beforeEach((to, from, next) => {
+  if(to.name === 'Login' || to.name === 'Signup') {
+    if(isAuthenticated()) {
+      return next({name: 'Dashboard'})
+    } else {
+      return next()
+    }
+  }
+  if(!isAuthenticated()) {
+    return next({name: 'Login'})
+  } else {
+    return next()
+  }
 })
 
 export default router

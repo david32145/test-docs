@@ -5,12 +5,26 @@
 
     <main>
       <form action="#">
-        <div class="input-group input-group-ligth" id="title-form-group">
+        <div
+          :class="[
+            'input-group',
+            'input-group-ligth',
+            { 'input-group-error': hasTitleError },
+          ]"
+          id="title-form-group"
+        >
           <label for="title">Título</label>
           <input type="text" id="title" placeholder="" v-model="titulo" />
-          <span>Título inválido</span>
+          <span>{{ textTitleError }}</span>
         </div>
-        <div class="input-group input-group-ligth" id="description-form-group">
+        <div
+          :class="[
+            'input-group',
+            'input-group-ligth',
+            { 'input-group-error': hasDescriptionError },
+          ]"
+          id="description-form-group"
+        >
           <label for="description">Descrição</label>
           <input
             type="text"
@@ -18,7 +32,7 @@
             placeholder=""
             v-model="descricao"
           />
-          <span>Descrição inválida</span>
+          <span>{{ textDescriptionError }}</span>
         </div>
         <button @click="insertTestSuite" class="btn-form">Criar suíte</button>
       </form>
@@ -31,6 +45,7 @@
 import HeaderComponent from "@/components/header.component.vue";
 import SubheaderWithTitleComponent from "@/components/subheader-with-title.component.vue";
 import Dialog from "@/components/Dialog.vue";
+import httpClient from "../providers/http-client";
 
 export default {
   name: "UserInsert",
@@ -52,16 +67,26 @@ export default {
   },
 
   methods: {
-    insertTestSuite: function () {
-      let obj = {
-        titulo: this.titulo,
-        descricao: this.descricao,
+    insertTestSuite(event) {
+      event.preventDefault()
+      if (!this.fieldsValidation()) {
+        return;
+      }
+      let requestBody = {
+        title: this.titulo,
+        description: this.descricao,
+        testRequestId: this.$route.params.test_request_id,
       };
-      this.$http.post(this.baseURI, obj).then((result) => {
-        if (this.fieldsValidation()) {
-          this.$router.push({ name: "TestSuites" });
-        }
-      });
+      httpClient
+        .post("/test_requests/test_suites", requestBody)
+        .then((response) => {
+          this.$router.push({
+            path: `/project/${this.$route.params.project_id}`,
+          });
+        })
+        .catch((err) => {
+          alert(err.response.data.message || "Ocorreu um error inesperado");
+        });
     },
     fieldsValidation() {
       this.hasTitleError = false;
@@ -74,7 +99,7 @@ export default {
         this.hasDescriptionError = true;
         this.textDescriptionError = "A descrição é obrigatória";
       }
-      return !(hasTitleError || hasDescriptionError);
+      return !(this.hasTitleError || this.hasDescriptionError);
     },
   },
 };

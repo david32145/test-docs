@@ -2,22 +2,13 @@
   <main class="project-members">
     <div class="project-members-header">
       <h1>{{ members.length }} Integrantes</h1>
-
       <div>
         <input
           v-model="searched_member"
           type="text"
           placeholder="buscar integrante"
+          v-on:keyup.enter="addMember"
         />
-        <ul class="users-list">
-          <li
-            v-for="user in filteredUsers"
-            :key="user.id"
-            @click="addMember(user.id)"
-          >
-            <p>{{ user.name }}</p>
-          </li>
-        </ul>
       </div>
     </div>
     <ul class="members-list">
@@ -27,13 +18,13 @@
         class="members-list-item"
       >
         <div class="member-data">
-          <img :src="member.avatar_uri" alt="Avatar" />
+          <img :src="member.avatarUri" alt="Avatar" />
           <div class="member-info">
             <div class="member-name_and_type">
               <p class="member-name">{{ member.name }}</p>
 
               <span
-                v-if="owner_id === member.id"
+                v-if="ownerId === member.id"
                 class="type-member owner-member"
                 >dono</span
               >
@@ -42,81 +33,81 @@
             <p class="member-email">{{ member.email }}</p>
           </div>
         </div>
-        <button @click="removeMember(index, member.id)">Remover</button>
+        <button
+          v-if="canDelete(member.id)"
+          @click="removeMember(index, member.id)"
+        >
+          Remover
+        </button>
       </li>
     </ul>
   </main>
 </template>
 
 <script>
+import httpClient from "../providers/http-client";
+
 export default {
   name: "project-members-tab",
+  props: ["project"],
   data: function () {
     return {
-      owner_id: 0,
-      users: [],
       searched_member: "",
       members: [],
+      ownerId: parseInt(
+        JSON.parse(localStorage.getItem("@testdocs/user")).id,
+        10
+      ),
     };
   },
-  computed: {
-    filteredUsers() {
-      if (this.searched_member) {
-        return this.users.filter((user) => {
-          let pos = this.members.findIndex((member) => member.id === user.id);
-          let hasString = user.name
-            .toLowerCase()
-            .includes(this.searched_member);
-          return pos === -1 && hasString;
-        });
-      }
-      return [];
-    },
-  },
   methods: {
-    addMember(newMemberId) {
-      this.searched_member = "";
-      this.members.push(this.users.find((user) => user.id === newMemberId));
+    addMember() {
+      const projectId = this.$route.params.project_id;
+      httpClient
+        .post(`/projects/${projectId}/members`, {
+          userEmail: this.searched_member,
+        })
+        .then((response) => {
+          this.members.push(response.data);
+        })
+        .catch((err) => {
+          alert(err.response.data.message || "Ocorreu um error inesperado");
+        });
     },
     removeMember(index, removedMemberId) {
-      this.members.splice(index, 1);
+      const projectId = this.$route.params.project_id;
+      httpClient
+        .delete(`/projects/${projectId}/members/${removedMemberId}`, {
+          userEmail: this.searched_member,
+        })
+        .then((response) => {
+          this.members.splice(index, 1);
+        })
+        .catch((err) => {
+          alert(err.response.data.message || "Ocorreu um error inesperado");
+        });
+    },
+    canDelete(deleteUser) {
+      const userId = parseInt(
+        JSON.parse(localStorage.getItem("@testdocs/user")).id,
+        10
+      );
+      if (deleteUser === userId) {
+        return false;
+      }
+      return userId === parseInt(this.project.ownerId);
     },
   },
-  beforeRouteEnter(to, from, next) {
-    next((vm) => {
-      vm.users = [
-        {
-          id: 0,
-          avatar_uri: "@/assets/user_avatar.svg",
-          name: "David Nascimento",
-          email: "nascimento@gmail.com",
-        },
-        {
-          id: 1,
-          avatar_uri: "@/assets/user_avatar.svg",
-          name: "Rafael Vieira",
-          email: "nascimento@gmail.com",
-        },
-        {
-          id: 2,
-          avatar_uri: "@/assets/user_avatar.svg",
-          name: "Lucas Evangelista",
-          email: "nascimento@gmail.com",
-        },
-      ];
-      vm.members = [
-        {
-          id: 0,
-          avatar_uri: "@/assets/user_avatar.svg",
-          name: "David Nascimento",
-          email: "nascimento@gmail.com",
-        },
-      ];
-      /* getOwnerId */
-      let projectId = vm.$route.params.projectId;
-      // requisição axios para pegar o owner_id do projeto ...
-      vm.owner_id = 0;
-    });
+  created() {
+    const projectId = this.$route.params.project_id;
+    httpClient
+      .get(`/projects/${projectId}/members`)
+      .then((response) => {
+        this.members = response.data;
+      })
+      .catch((err) => {
+        alert(err.response.data.message || "Ocorreu um error inesperado");
+      });
   },
 };
 </script>

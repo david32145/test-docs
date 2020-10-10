@@ -79,12 +79,12 @@ export default {
   components: {
     Dialog,
   },
-  props: ["onFormSubmit", "buttonTitle"],
+  props: ["onFormSubmit", "buttonTitle", "project"],
   data: function () {
     return {
-      name: "",
-      description: "",
-      github_repo_uri: "",
+      name: this.project.name,
+      description: this.project.description,
+      github_repo_uri: this.project.githubUri,
       file: "",
       hasNameError: false,
       hasDescriptionError: false,
@@ -98,9 +98,10 @@ export default {
     send() {
       if (this.fieldsValidation()) {
         this.onFormSubmit({
+          ...this.project,
           name: this.name,
           description: this.description,
-          githubRepoUri: this.github_repo_uri,
+          githubUri: this.github_repo_uri,
         })
       }
     },
@@ -138,7 +139,7 @@ export default {
         this.hasGithubError
       );
     },
-  },
+  }
 };
 </script>
 

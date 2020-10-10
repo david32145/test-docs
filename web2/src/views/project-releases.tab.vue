@@ -3,8 +3,9 @@
     <div class="release-list-container">
       <div class="release-header">
         <h2>{{ releases_tests.length }} releases</h2>
-        <router-link to="/requesttest">
-          <!-- requestTest -->
+        <router-link
+          :to="'/project/' + $route.params.project_id + '/testrequest/new'"
+        >
           <button class="btn-form add-new-release">+</button>
         </router-link>
       </div>
@@ -15,23 +16,23 @@
           class="release-list-item"
         >
           <img
-            v-if="release_test.status === 'approved'"
+            v-if="release_test.status === 'ACCEPTED'"
             src="@/assets/check-dark.svg"
             alt="Icon checked dark"
           />
           <img
-            v-else-if="release_test.status === 'processing'"
+            v-else-if="release_test.status === 'REQUESTED'"
             src="@/assets/clock-dark.svg"
             alt="Icon clock dark"
           />
           <img v-else src="@/assets/close-dark.svg" alt="Icon close dark" />
 
           <div class="release-item-info">
-            <span>v.{{ release_test.version }}</span>
-            <p>Requisitada para {{ release_test.userNameRequest }}</p>
+            <span>{{ release_test.version }}</span>
+            <p>Liberado por {{ "David" }}</p>
           </div>
           <button
-            v-if="release_test.status === 'processing'"
+            v-if="release_test.status === 'REQUESTED'"
             @click="removeRelease(index, release_test.id)"
             class="btn-delete-release"
           >
@@ -45,6 +46,7 @@
 </template>
 
 <script>
+import httpClient from "../providers/http-client";
 export default {
   name: "project-releases-tab",
   data: function () {
@@ -54,72 +56,31 @@ export default {
   },
   methods: {
     removeRelease(index, removedReleaseId) {
-      this.releases_tests.splice(index, 1);
+      httpClient
+        .delete(`/test_requests/${removedReleaseId}`)
+        .then((response) => {
+          this.releases_tests.splice(index, 1);
+        })
+        .catch((err) => {
+          alert(err.response.data.message || "Ocorreu um error inesperado");
+        });
     },
   },
-  beforeRouteEnter(to, from, next) {
-    next((vm) => {
-      vm.releases_tests = [
-        {
-          id: 0,
-          title: "Titulo",
-          description: "Aprovada em 12 de março de 2020",
-          status: "approved",
-          image_description: "",
-          report: "",
-          image_report: "",
-          tasks_id: 0,
-          userIdRequest: 0,
-          userNameRequest: "Rafael",
-          version: "1.1.1",
-        },
-        {
-          id: 1,
-          title: "Titulo",
-          description: "",
-          status: "processing",
-          image_description: "",
-          report: "",
-          image_report: "",
-          tasks_id: 0,
-          userIdRequest: 0,
-          userNameRequest: "Rafael",
-          version: "1.1.1",
-        },
-        {
-          id: 2,
-          title: "Titulo",
-          description: "Rejeitada 12 de março de 2020",
-          status: "disapproved",
-          image_description: "",
-          report: "",
-          image_report: "",
-          tasks_id: 0,
-          userIdRequest: 0,
-          userNameRequest: "Rafael",
-          version: "1.1.1",
-        },
-        {
-          id: 3,
-          title: "Titulo",
-          description: "",
-          status: "processing",
-          image_description: "",
-          report: "",
-          image_report: "",
-          tasks_id: 0,
-          userIdRequest: 0,
-          userNameRequest: "Rafael",
-          version: "1.1.1",
-        },
-      ];
-    });
+  created() {
+    const projectId = this.$route.params.project_id;
+    httpClient
+      .get(`/test_requests/projects/${projectId}`)
+      .then((response) => {
+        this.releases_tests = response.data;
+      })
+      .catch((err) => {
+        alert(err.response.data.message || "Ocorreu um error inesperado");
+      });
   },
 };
 </script>
 
 <style>
-
 .main-container {
   display: flex;
   flex: 1;
@@ -193,7 +154,8 @@ export default {
 .release-list-item .release-item-info p {
   font-family: Roboto;
   font-weight: 300;
-  font-size: 1.2rem;
+  margin-top: 6px;
+  font-size: 1.3rem;
   letter-spacing: 0.02em;
   color: var(--dark-text);
 }

@@ -4,13 +4,27 @@
     <subheader-with-title-component title="Criar novo caso de teste" />
 
     <main>
-      <form action="#">
-        <div class="input-group input-group-ligth" id="title-form-group">
+      <form v-on:submit="insertTestCase">
+        <div
+          :class="[
+            'input-group',
+            'input-group-ligth',
+            { 'input-group-error': hasTitleError },
+          ]"
+          id="title-form-group"
+        >
           <label for="title">Título</label>
           <input type="text" id="title" placeholder="" v-model="titulo" />
-          <span>Título inválido</span>
+          <span>{{ textTitleError }}</span>
         </div>
-        <div class="input-group input-group-ligth" id="description-form-group">
+        <div
+          :class="[
+            'input-group',
+            'input-group-ligth',
+            { 'input-group-error': hasDescriptionError },
+          ]"
+          id="description-form-group"
+        >
           <label for="description">Descrição</label>
           <input
             type="text"
@@ -18,12 +32,19 @@
             placeholder=""
             v-model="descricao"
           />
-          <span>Descrição inválida</span>
+          <span>{{ textDescriptionError }}</span>
         </div>
-        <div class="input-group input-group-ligth" id="task-form-group">
+        <div
+          :class="[
+            'input-group',
+            'input-group-ligth',
+            { 'input-group-error': hasTaskError },
+          ]"
+          id="task-form-group"
+        >
           <label for="task">Task ID:</label>
           <input type="text" id="task" placeholder="" v-model="taskid" />
-          <span>Task inválida</span>
+          <span>{{ textTaskError }}</span>
         </div>
         <button type="submit" class="btn-form">Criar caso de teste</button>
       </form>
@@ -36,6 +57,7 @@
 import HeaderComponent from "@/components/header.component.vue";
 import SubheaderWithTitleComponent from "@/components/subheader-with-title.component.vue";
 import Dialog from "@/components/Dialog.vue";
+import httpClient from "../providers/http-client";
 
 export default {
   name: "testcase-view",
@@ -59,17 +81,27 @@ export default {
     };
   },
   methods: {
-    insertTestCase: function () {
-      let obj = {
-        titulo: this.titulo,
-        descricao: this.descricao,
-        taskid: this.taskid,
+    insertTestCase(event) {
+      event.preventDefault()
+      if (!this.fieldsValidation()) {
+        return;
+      }
+      let requestBody = {
+        title: this.titulo,
+        description: this.descricao,
+        testSuiteId: this.$route.params.test_suite_id,
       };
-      this.$http.post(this.baseURI, obj).then((result) => {
-        if (this.fieldsValidation()) {
-          this.$router.push({ name: "TestCases" });
-        }
-      });
+
+      httpClient
+        .post("/test_requests/test_suites/test_cases", requestBody)
+        .then((response) => {
+          this.$router.push({
+            path: `/project/${this.$route.params.project_id}`,
+          });
+        })
+        .catch((err) => {
+          alert(err.response.data.message || "Ocorreu um error inesperado");
+        });
     },
     fieldsValidation() {
       this.hasTitleError = false;
@@ -88,7 +120,11 @@ export default {
         this.hasTaskError = true;
         this.textTaskError = "A task é obrigatória";
       }
-      return !(hasTitleError || hasDescriptionError || hasTaskError);
+      return !(
+        this.hasTitleError ||
+        this.hasDescriptionError ||
+        this.hasTaskError
+      );
     },
   },
 };
@@ -98,6 +134,7 @@ export default {
 .test-case {
   display: flex;
   flex-direction: column;
+  height: 100%;
 }
 
 .test-case main {

@@ -1,7 +1,7 @@
 <template>
   <section class="sub-header">
     <div class="project-info">
-      <img src="@/assets/avatar.svg" alt="Project Logo" />
+      <img :src="imageLogo" alt="Project Logo" />
       <span>{{ projectName }}</span>
     </div>
     <div class="tab">
@@ -31,7 +31,7 @@
 <script>
 export default {
   name: "subheader-component",
-  props: ["changedActiveTab", "activeTab", "projectName"],
+  props: ["changedActiveTab", "activeTab", "projectName", "imageLogo"],
   data: function () {
     return {
       projectId: 0,
