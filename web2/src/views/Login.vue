@@ -78,7 +78,7 @@
               placeholder="digite seu email"
               v-model="email"
             />
-            <span>Email inválido</span>
+            <span>{{textEmailError}}</span>
           </div>
           <div class="input-group" id="password-form-group">
             <label for="password">Senha</label>
@@ -88,7 +88,7 @@
               placeholder="digite sua senha"
               v-model="password"
             />
-            <span>Senha inválida</span>
+            <span>{{textPasswordError}}</span>
           </div>
 
           <button @click="postLogin" class="btn-form">Entrar</button>

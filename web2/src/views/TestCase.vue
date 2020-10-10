@@ -8,19 +8,14 @@
             <div class="input-group input-group-ligth" id="title-form-group">
                 <label for="title">Título</label>
                 <input type="text" id="title" placeholder="" v-model="titulo">
-                <span>Título inválido</span>
+                <span>{{textTitleError}}</span>
             </div>
             <div class="input-group input-group-ligth" id="description-form-group">
                 <label for="description">Descrição</label>
                 <input type="text" id="description" placeholder="" v-model="descricao">
-                <span>Descrição inválida</span>
+                <span>{{textDescriptionError}}</span>
             </div>
-            <div class="input-group input-group-ligth" id="task-form-group">
-                <label for="task">Task ID:</label>
-                <input type="text" id="task" placeholder="" v-model="taskid">
-                <span>Task inválida</span>
-            </div>
-            <button type="submit" class="btn-form">Criar caso de teste</button>
+            <button @click="insertTestCase" class="btn-form">Criar caso de teste</button>
         </form>
     </main>
     <Dialog></Dialog>
@@ -43,14 +38,11 @@ export default {
       return {
         titulo: "",
         descricao: "",
-        taskid: "",
         baseURI: "",
         hasTitleError: false,
         hasDescriptionError: false,
-        hasTaskError: false,
         textTitleError: '',
         textDescriptionError: '',
-        textTaskError: '',
       };
     },
     methods: {
@@ -58,7 +50,6 @@ export default {
         let obj = {
           titulo: this.titulo,
           descricao: this.descricao,
-          taskid: this.taskid,
         };
         this.$http.post(this.baseURI, obj).then((result) => {
           if(this.fieldsValidation()) {
@@ -79,11 +70,7 @@ export default {
             this.hasDescriptionError = true
             this.textDescriptionError = "A descrição é obrigatória"
           }
-          if(this.taskid === "") {
-            this.hasTaskError = true
-            this.textTaskError = "A task é obrigatória"
-          }
-          return !(hasTitleError || hasDescriptionError || hasTaskError )
+          return !(hasTitleError || hasDescriptionError)
         }
     },
 };

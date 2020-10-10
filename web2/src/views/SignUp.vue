@@ -40,17 +40,17 @@
                 <div class="input-group" id="email-form-group">
                     <label for="email">Email</label>
                     <input type="text" id="email" placeholder="Digite seu email" v-model="email">
-                    <span>Email inválido</span>
+                    <span>{{textEmailError}}</span>
                 </div>
                 <div class="input-group" id="password-form-group">
                     <label for="password">Senha</label>
                     <input type="password" id="password" placeholder="Digite sua senha" v-model="password">
-                    <span>Senha inválida</span>
+                    <span>{{textPasswordError}}</span>
                 </div>
                 <div class="input-group" id="nome-form-group">
                     <label for="nome">Nome</label>
                     <input type="text" id="nome" placeholder="Digite seu nome" v-model="nome">
-                    <span>Nome errado</span>
+                    <span>textNomeError</span>
                 </div>
                 <div class="input-group" id="cargo-form-group">
                     <label for="cargo">Cargo</label>
@@ -65,7 +65,7 @@
                 <div class="input-group" id="github-form-group">
                     <label for="github">GitHub</label>
                     <input type="text" id="github" placeholder="https://github.com/user" v-model="github">
-                    <span>Link inválida</span>
+                    <span>{{textGitHubError}}</span>
                 </div>
                 <div class="helps">
                     <span class="link-help">

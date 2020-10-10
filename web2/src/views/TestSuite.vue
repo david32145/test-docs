@@ -7,12 +7,12 @@
             <div class="input-group input-group-ligth" id="title-form-group">
                 <label for="title">Título</label>
                 <input type="text" id="title" placeholder="" v-model="titulo">
-                <span>Título inválido</span>
+                <span>{{textTitleError}}</span>
             </div>
             <div class="input-group input-group-ligth" id="description-form-group">
                 <label for="description">Descrição</label>
                 <input type="text" id="description" placeholder="" v-model="descricao">
-                <span>Descrição inválida</span>
+                <span>{{textDescriptionError}}</span>
             </div>
             <button @click="insertTestSuite" class="btn-form">Criar suíte</button>
         </form>

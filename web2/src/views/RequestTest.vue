@@ -8,22 +8,22 @@
             <div class="input-group input-group-ligth" id="version-form-group">
                 <label for="version">Versão</label>
                 <input type="text" id="version" placeholder="" v-model="versao">
-                <span>Versão inválido</span>
+                <span>{{textVersionError}}</span>
             </div>
             <div class="input-group input-group-ligth" id="title-form-group">
                 <label for="title">Título</label>
                 <input type="text" id="title" placeholder="" v-model="titulo">
-                <span>Título inválido</span>
+                <span>{{textTitleError}}</span>
             </div>
             <div class="input-group input-group-ligth" id="description-form-group">
                 <label for="description">Descrição</label>
                 <input type="text" id="description" placeholder="" v-model="descricao">
-                <span>Descrição inválida</span>
+                <span>{{textDescriptionError}}</span>
             </div>
             <div class="input-group input-group-ligth" id="testeruserid-form-group">
                 <label for="testeruserid">Tester ID:</label>
                 <input type="text" id="testeruserid" placeholder="" v-model="testerid">
-                <span>Tester ID inválido</span>
+                <span>{{textTesterIdError}}</span>
             </div>
             <button @click="insertRequestTest" class="btn-form">Criar solicitação</button>
         </form>
