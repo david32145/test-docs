@@ -1,108 +1,70 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Main from '@/views/Main.vue'
-import Dashboard from '@/views/Dashboard.vue'
-
-import Project from '@/views/Project.vue'
-import ProjectCreate from '@/views/ProjectCreate.vue'
-import ProjectView from '@/views/ProjectView.vue'
-import ProjectMembers from '@/views/ProjectMembers.vue'
-import ProjectReleases from '@/views/ProjectReleases.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '*',
+    path: '/login',
     name: 'Login',
-    component: function(){
-      return import ('../views/Login.vue')
+    component: function () {
+      return import('../views/login.view.vue')
     }
   },
   {
     path: '/signup',
-    name: 'SignUp',
-    component: function(){
-      return import ('../views/SignUp.vue')
+    name: 'Signup',
+    component: function () {
+      return import('../views/signup.view.vue')
     }
   },
   {
-    path: '/requesttest',
-    name: 'RequestTest',
-    component: function(){
-      return import ('../views/RequestTest.vue')
+    path: '/dashboard',
+    name: 'Dashboard',
+    component: function () {
+      return import('../views/dashboard.view.vue')
     }
   },
   {
-    path: '/testcase',
-    name: 'TestCase',
-    component: function(){
-      return import ('../views/TestCase.vue')
-    }
-  }, 
-  {
-    path: '/testsuite',
-    name: 'TestSuite',
-    component: function(){
-      return import ('../views/TestSuite.vue')
+    path: '/project/new',
+    name: 'NewProject',
+    component: function () {
+      return import('../views/new-project.view.vue')
     }
   },
   {
-    path: '/main',
-    name: 'Main',
-    component: Main,
-    children: [
-      {
-        path: 'dashboard',
-        name: 'Dashboard',
-        component: Dashboard
-      },
-      {
-        path: 'project/:projectId(\\d+)',
-        name: 'Project',
-        component: Project,
-        children: [
-          {
-            path: 'view',
-            name: 'ProjectView',
-            component: ProjectView
-          },
-          {
-            path: 'members',
-            name: 'ProjectMembers',
-            component: ProjectMembers
-          },
-          {
-            path: 'releases',
-            name: 'ProjectReleases',
-            component: ProjectReleases
-          },
-          {
-            path: '*',
-            redirect: 'view'
-          },
-          {
-            path: '',
-            redirect: 'view'
-          },
-        ]
-      },
-      {
-        path: 'projectCreate',
-        name: 'ProjectCreate',
-        component: ProjectCreate,
-      },
-      {
-        path: '',
-        redirect: 'dashboard'
-      },
-      {
-        path: '*',
-        redirect: 'dashboard'
-      },
-    ]
+    path: '/project/:project_id',
+    name: 'Project',
+    component: function () {
+      return import('../views/view-project.view.vue')
+    }
+  },
+  {
+    path: '/project/:project_id/testrequest/new',
+    name: 'NewTestRequest',
+    component: function () {
+      return import('../views/new-request-test.component.vue')
+    }
+  },
+  {
+    path: '/project/:project_id/testrequest/:test_request_id/testsuite/new',
+    name: 'NewTestSuite',
+    component: function() {
+      return import('../views/testsuite.view.vue')
+    }
+  },
+  {
+    path: '/project/:project_id/testrequest/:test_request_id/testsuite/:test_suite_id/testcase/new',
+    name: 'NewTestSuite',
+    component: function() {
+      return import('../views/testcase.view.vue')
+    }
+  },
+  {
+    path: '*',
+    redirect: '/login'
   }
-] 
+]
 
 const router = new VueRouter({
   mode: 'history',

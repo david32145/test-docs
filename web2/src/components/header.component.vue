@@ -1,12 +1,11 @@
 <template>
-    <header>
+    <header class="main-header">
         <div class="header-container">
             <div class="logo-and-title-container">
                 <img src="@/assets/logo.svg" alt="Logo">
                 <router-link :to="{name: 'Dashboard'}">
                     <span>Dashboard</span>
                 </router-link>
-                
             </div>
             <div class="notifications-and-user-container">
                 <NotificationIcon color='white'/>
@@ -20,7 +19,7 @@
 import NotificationIcon from "@/components/NotificationIcon.vue"
 
 export default {
-    name:"Header",
+    name:"header-component",
     components: {
         NotificationIcon
     }
@@ -28,7 +27,7 @@ export default {
 </script>
 
 <style>
-header {
+.main-header {
     width: 100%;
     min-height: 64px;
     background-color: var(--primary-color);
@@ -38,7 +37,7 @@ header {
     justify-content: center;
 }
 
-header .header-container{
+.main-header .header-container{
     width: 100%;
     padding: 0 25px;
     display: flex;
@@ -46,19 +45,19 @@ header .header-container{
     justify-content: space-between;
 }
 
-.header-container .logo-and-title-container {
+.main-header .header-container .logo-and-title-container {
     width: 200px;
     display: flex;
     align-items: center;
 }
 
-.logo-and-title-container img {
+.main-header .logo-and-title-container img {
     width: 40px;
     height: 40px;
     margin-right: 20px;
 }
 
-.logo-and-title-container span {
+.main-header .logo-and-title-container span {
     color: #FFFFFF;
     font-weight: 500;
     font-size: 2.2rem;
@@ -68,12 +67,12 @@ header .header-container{
     cursor: pointer;
 }
 
-.header-container .notifications-and-user-container {
+.main-header .header-container .notifications-and-user-container {
     display: flex;
     align-items: center;
 }
 
-.notifications-and-user-container .icon-user {
+.main-header .notifications-and-user-container .icon-user {
     width: 33px;
     height: 33px;
     margin-left: 35px;
@@ -81,27 +80,27 @@ header .header-container{
 }
 
 @media (max-width: 680px) {
-    header {
+    .main-header {
         min-width: 300px;
         height: 10vw;
         min-height: 60px;
     }
 
-    .header-container .logo-and-title-container {
+    .main-header .header-container .logo-and-title-container {
         width: 180px;
         min-width: 160px;
     }
 
-    .logo-and-title-container img {
+    .main-header .logo-and-title-container img {
         width: 44px;
         height: 44px;
     }
     
-    .logo-and-title-container span {
+    .main-header .logo-and-title-container span {
         font-size: 2.0rem;
     }
 
-    .header-container .notifications-and-user-container {
+    .main-header .header-container .notifications-and-user-container {
         width: 80px;
         min-width: 88px;
     }

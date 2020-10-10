@@ -25,6 +25,7 @@ html {
 body {
   display: flex;
   flex-direction: row;
+  min-height: 600px;
 }
 
 * {
@@ -178,20 +179,6 @@ h1{
 
 .btn-form:hover {
   background-color: #0084B9;
-}
-
-/* Links */
-.login-container form .link-help {
-  font-family: Roboto;
-  font-weight: 400;
-  font-size: 1.6rem;
-  letter-spacing: 0.02em;
-  text-decoration: none;
-  color: #BCB8B1;
-}
-
-.login-container form .link-help:hover {
-  opacity: 0.9;
 }
 
 /* Backgrounds */
