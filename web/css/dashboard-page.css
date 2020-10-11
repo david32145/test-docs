@@ -8,7 +8,6 @@ body {
     --gray-light: #91A2B2; 
     --light-green: #F5F7FB;
     --bg-fill: #F5F7FB;
-    --bg-btn: #0681B2;
 }
 
 .page {
@@ -71,7 +70,7 @@ main .projects-header {
 }
 
 .container .project-search-container:focus-within {
-    border: 1px solid var(--bg-btn);
+    border: 1px solid var(--bg-blue);
 }
 
 .container .project-search-container img {
@@ -221,7 +220,7 @@ main .list-project {
 .list-project li a {
     width: 45px;
     height: 45px;
-    background: var(--bg-btn);
+    background: var(--bg-blue);
     border: none;
     border-radius: 25px;
     cursor: pointer;
@@ -311,7 +310,7 @@ main .list-project {
     font-weight: bold;
     font-size: 1.4rem;
     line-height: 1.6rem;
-    color: var(--bg-btn);
+    color: var(--bg-blue);
 
     display: flex;
     align-items: center;
