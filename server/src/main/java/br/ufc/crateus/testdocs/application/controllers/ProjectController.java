@@ -49,9 +49,15 @@ public class ProjectController {
 	}
 
 	@GetMapping
-	public Object getMyProjects(@RequestHeader("Authorization") long loggedUserId) {
+	public Object getMyProjects(@RequestHeader("Authorization") long loggedUserId, @RequestParam(value = "search", required = false) String search) {
 		List<ProjectListDTO> projectListDTOs = new ArrayList<ProjectListDTO>();
-		for(String[] s : projectDao.listProject(loggedUserId)) {
+		List<String[]> result = null;
+		if(search != null && !search.isBlank()) {
+			result = projectDao.listProjectByName(loggedUserId, search);
+		} else {
+			result = projectDao.listProject(loggedUserId);
+		}
+		for(String[] s : result) {
 			projectListDTOs.add(new ProjectListDTO(Long.parseLong(s[0]),s[1], Long.parseLong(s[2]), s[3], s[4]));
 		}
 		return projectListDTOs;

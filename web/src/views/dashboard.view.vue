@@ -14,6 +14,7 @@
                 name="project-search"
                 id="project-search"
                 placeholder="buscar"
+                v-on:keyup.enter="findProjects"
               />
             </div>
             <router-link to="/project/new">
@@ -31,7 +32,9 @@
             <NotificationIcon color="black" />
 
             <p class="members-number">{{ project.memberSize }} integrantes</p>
-            <p class="project-owner">{{ `${project.ownerName.slice(0, 8)} ...` }}</p>
+            <p class="project-owner">
+              {{ `${project.ownerName.slice(0, 8)} ...` }}
+            </p>
 
             <router-link :to="`project/${project.id}`">
               <button>
@@ -67,16 +70,21 @@ export default {
       projects: [],
     };
   },
+  methods: {
+    findProjects() {
+      httpClient
+        .get(this.project_search ? "/projects?search=" + this.project_search : "/projects")
+        .then((response) => {
+          this.projects = response.data;
+          this.project_search = ""
+        })
+        .catch((err) => {
+          alert(err.response.data.message || "Ocorreu um error inesperado");
+        });
+    },
+  },
   created() {
-    httpClient
-      .get("/projects")
-      .then((response) => {
-        this.projects = response.data;
-        console.log(response.data)
-      })
-      .catch((err) => {
-        alert(err.response.data.message || "Ocorreu um error inesperado");
-      });
+    this.findProjects()
   },
 };
 </script>

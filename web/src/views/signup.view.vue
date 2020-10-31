@@ -163,12 +163,12 @@ export default {
       }
       let requestBody = {
         email: this.email,
-        passwordHash: this.password,
+        password: this.password,
         name: this.nome,
         office: this.cargo,
         description: this.descricao,
         github: this.github,
-        avatarUri: "http://api.adorable.io/avatars/128/abott@adorable.png"
+        avatarUri: "https://st3.depositphotos.com/13159112/17145/v/380/depositphotos_171453724-stock-illustration-default-avatar-profile-icon-grey.jpg"
       };
       httpClient.post("/users", requestBody)
         .then(() => {

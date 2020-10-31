@@ -20,4 +20,8 @@ public interface ProjectDao extends CrudRepository<Project, Long>{
 
 	@Query("select p.id, p.name, (select count(p2m) from Project p2 join p2.members p2m where p2.id = p.id) + 1, p.owner.name, p.imageUri from Project p where p.owner.id = :ownerId")
 	List<String[]> listProject(@Param("ownerId") long ownerId);
+
+	@Query("select p.id, p.name, (select count(p2m) from Project p2 join p2.members p2m where p2.id = p.id) + 1, p.owner.name, p.imageUri from Project p where p.owner.id = :ownerId and p.name like :name")
+	List<String[]> listProjectByName(@Param("ownerId") long ownerId, @Param("name")String name);
+
 }
